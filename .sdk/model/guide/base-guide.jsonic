@@ -1,0 +1,35 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 3
+  metrics: count: path: 5
+  metrics: count: method: 8
+
+  entity: health: {
+    path: "/ping": {
+      op: load: method: *GET
+    }
+  }
+
+  entity: post: {
+    path: "/posts": {
+      op: list: method: *GET
+    }
+    path: "/posts/{id}": {
+      op: load: method: *GET
+    }
+  }
+
+  entity: user: {
+    path: "/users": {
+      op: create: method: *POST
+      op: list: method: *GET
+    }
+    path: "/users/{id}": {
+      op: load: method: *GET
+      op: remove: method: *DELETE
+      op: update: method: *PUT
+    }
+  }
+
+}

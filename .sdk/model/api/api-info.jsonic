@@ -1,0 +1,23 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      contact: {
+        url: "https://docs.dummyapi.online/"
+      }
+      description: "The DummyAPI provides a free mock API for developers to simulate HTTP requests and responses in their applications. It allows users to quickly set up endpoints and test their applications without needing a live backend."
+      servers: [
+        {
+          description: "Production server"
+          url: "https://dummyapi.online/api"
+        }
+      ]
+      title: "Mock API Service"
+      version: "1.0.0"
+    }
+  }
+}
+
+}
