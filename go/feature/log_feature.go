@@ -4,7 +4,7 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/voxgig-sdk/mock-api-service-sdk/core"
+	"github.com/voxgig-sdk/mock-api-service-sdk/go/core"
 )
 
 type LogFeature struct {

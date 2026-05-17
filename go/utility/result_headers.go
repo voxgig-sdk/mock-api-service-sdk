@@ -1,6 +1,6 @@
 package utility
 
-import "github.com/voxgig-sdk/mock-api-service-sdk/core"
+import "github.com/voxgig-sdk/mock-api-service-sdk/go/core"
 
 func resultHeadersUtil(ctx *core.Context) *core.Result {
 	response := ctx.Response

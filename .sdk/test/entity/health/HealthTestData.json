@@ -3,15 +3,18 @@
     "health": {
       "HEALTH00": {
         "message": "s14",
-        "status": "s15"
+        "status": "s15",
+        "id": "HEALTH00"
       },
       "HEALTH01": {
         "message": "s28",
-        "status": "s29"
+        "status": "s29",
+        "id": "HEALTH01"
       },
       "HEALTH02": {
         "message": "s3c",
-        "status": "s3d"
+        "status": "s3d",
+        "id": "HEALTH02"
       }
     }
   },

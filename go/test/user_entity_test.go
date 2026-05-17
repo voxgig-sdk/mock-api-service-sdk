@@ -10,10 +10,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/mock-api-service-sdk"
-	"github.com/voxgig-sdk/mock-api-service-sdk/core"
+	sdk "github.com/voxgig-sdk/mock-api-service-sdk/go"
+	"github.com/voxgig-sdk/mock-api-service-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/mock-api-service-sdk/go/utility/struct"
 )
 
 func TestUserEntity(t *testing.T) {

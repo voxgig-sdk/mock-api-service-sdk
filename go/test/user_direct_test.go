@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/mock-api-service-sdk"
-	"github.com/voxgig-sdk/mock-api-service-sdk/core"
+	sdk "github.com/voxgig-sdk/mock-api-service-sdk/go"
+	"github.com/voxgig-sdk/mock-api-service-sdk/go/core"
 )
 
 func TestUserDirect(t *testing.T) {

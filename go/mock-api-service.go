@@ -1,10 +1,10 @@
 package voxgigmockapiservicesdk
 
 import (
-	"github.com/voxgig-sdk/mock-api-service-sdk/core"
-	"github.com/voxgig-sdk/mock-api-service-sdk/entity"
-	"github.com/voxgig-sdk/mock-api-service-sdk/feature"
-	_ "github.com/voxgig-sdk/mock-api-service-sdk/utility"
+	"github.com/voxgig-sdk/mock-api-service-sdk/go/core"
+	"github.com/voxgig-sdk/mock-api-service-sdk/go/entity"
+	"github.com/voxgig-sdk/mock-api-service-sdk/go/feature"
+	_ "github.com/voxgig-sdk/mock-api-service-sdk/go/utility"
 )
 
 // Type aliases preserve external API.
