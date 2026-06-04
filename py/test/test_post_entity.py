@@ -102,7 +102,6 @@ def _post_basic_setup(extra):
         "MOCKAPISERVICE_TEST_POST_ENTID": idmap,
         "MOCKAPISERVICE_TEST_LIVE": "FALSE",
         "MOCKAPISERVICE_TEST_EXPLAIN": "FALSE",
-        "MOCKAPISERVICE_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -113,7 +112,6 @@ def _post_basic_setup(extra):
     if env.get("MOCKAPISERVICE_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("MOCKAPISERVICE_APIKEY"),
             },
             extra or {},
         ])

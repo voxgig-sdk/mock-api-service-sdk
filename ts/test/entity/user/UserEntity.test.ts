@@ -154,7 +154,6 @@ function basicSetup(extra?: any) {
     'MOCK_API_SERVICE_TEST_USER_ENTID': idmap,
     'MOCK_API_SERVICE_TEST_LIVE': 'FALSE',
     'MOCK_API_SERVICE_TEST_EXPLAIN': 'FALSE',
-    'MOCK_API_SERVICE_APIKEY': 'NONE',
   })
 
   idmap = env['MOCK_API_SERVICE_TEST_USER_ENTID']
@@ -164,7 +163,6 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new MockApiServiceSDK(merge([
       {
-        apikey: env.MOCK_API_SERVICE_APIKEY,
       },
       extra
     ]))

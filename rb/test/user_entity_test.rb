@@ -135,7 +135,6 @@ def user_basic_setup(extra)
     "MOCKAPISERVICE_TEST_USER_ENTID" => idmap,
     "MOCKAPISERVICE_TEST_LIVE" => "FALSE",
     "MOCKAPISERVICE_TEST_EXPLAIN" => "FALSE",
-    "MOCKAPISERVICE_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -147,7 +146,6 @@ def user_basic_setup(extra)
   if env["MOCKAPISERVICE_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["MOCKAPISERVICE_APIKEY"],
       },
       extra || {},
     ])
