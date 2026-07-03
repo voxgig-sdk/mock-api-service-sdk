@@ -10,7 +10,7 @@ The TypeScript SDK for the MockApiService API — a type-safe, entity-oriented c
 
 ## Install
 ```bash
-npm install mock-api-service
+npm install @voxgig-sdk/mock-api-service
 ```
 ## Tutorial: your first API call
 

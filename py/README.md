@@ -10,7 +10,7 @@ The Python SDK for the MockApiService API — an entity-oriented client followin
 
 ## Install
 ```bash
-pip install mock-api-service-sdk
+pip install voxgig-sdk-mock-api-service
 ```
 
 Or install from source:

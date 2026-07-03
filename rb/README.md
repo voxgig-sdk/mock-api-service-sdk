@@ -10,13 +10,13 @@ The Ruby SDK for the MockApiService API — an entity-oriented client using idio
 
 ## Install
 ```bash
-gem install mock-api-service-sdk
+gem install voxgig-sdk-mock-api-service
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "mock-api-service-sdk"
+gem "voxgig-sdk-mock-api-service"
 ```
 
 Then run:

@@ -2,9 +2,17 @@ Gem::Specification.new do |spec|
   spec.name          = "voxgig-sdk-mock-api-service"
   spec.version       = "0.0.1"
   spec.authors       = ["Voxgig"]
-  spec.summary       = "MockApiService SDK for Ruby"
+  spec.summary       = "Unofficial generated Ruby SDK for the Mock API Service public API. Not affiliated with or endorsed by the upstream API provider."
+  spec.description   = "Unofficial generated Ruby SDK for the Mock API Service public API. Not affiliated with or endorsed by the upstream API provider."
   spec.license       = "MIT"
   spec.homepage      = "https://github.com/voxgig-sdk/mock-api-service-sdk"
+  spec.metadata      = {
+    "homepage_uri"          => "https://github.com/voxgig-sdk/mock-api-service-sdk",
+    "source_code_uri"       => "https://github.com/voxgig-sdk/mock-api-service-sdk",
+    "bug_tracker_uri"       => "https://github.com/voxgig-sdk/mock-api-service-sdk/issues",
+    "changelog_uri"         => "https://github.com/voxgig-sdk/mock-api-service-sdk/blob/main/CHANGELOG.md",
+    "rubygems_mfa_required" => "true"
+  }
 
   spec.files         = Dir["lib/**/*.rb", "*.rb"]
   spec.require_paths = ["."]

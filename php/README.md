@@ -10,7 +10,7 @@ The PHP SDK for the MockApiService API — an entity-oriented client using PHP c
 
 ## Install
 ```bash
-composer require voxgig/mock-api-service-sdk
+composer require voxgig-sdk/mock-api-service
 ```
 
 
