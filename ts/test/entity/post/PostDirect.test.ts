@@ -136,12 +136,14 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'MOCKAPISERVICE_TEST_POST_ENTID': {},
     'MOCKAPISERVICE_TEST_LIVE': 'FALSE',
+    'MOCKAPISERVICE_APIKEY': 'NONE',
   })
 
   const live = 'TRUE' === env.MOCKAPISERVICE_TEST_LIVE
 
   if (live) {
     const client = new MockApiServiceSDK({
+      apikey: env.MOCKAPISERVICE_APIKEY,
     })
 
     let idmap: any = env['MOCKAPISERVICE_TEST_POST_ENTID']

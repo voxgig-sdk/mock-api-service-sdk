@@ -30,12 +30,12 @@ Create a new SDK client instance.
 
 ### Static Methods
 
-#### `sdk.test(testopts, sdkopts)`
+#### `sdk.test(testopts?, sdkopts?)`
 
-Create a test client with mock features active. Both arguments may be `nil`.
+Create a test client with mock features active. Both arguments are optional.
 
 ```lua
-local client = sdk.test(nil, nil)
+local client = sdk.test()
 ```
 
 
@@ -109,7 +109,7 @@ local health = client:Health(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Health(nil):load({ id = "health_id" }, nil)
+local result, err = client:Health():load({ id = "health_id" })
 ```
 
 ### Common Methods
@@ -165,7 +165,7 @@ local post = client:Post(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Post(nil):list(nil, nil)
+local results, err = client:Post():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -173,7 +173,7 @@ local results, err = client:Post(nil):list(nil, nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Post(nil):load({ id = "post_id" }, nil)
+local result, err = client:Post():load({ id = "post_id" })
 ```
 
 ### Common Methods
@@ -239,8 +239,8 @@ local user = client:User(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:User(nil):create({
-}, nil)
+local result, err = client:User():create({
+})
 ```
 
 #### `list(reqmatch, ctrl) -> any, err`
@@ -248,7 +248,7 @@ local result, err = client:User(nil):create({
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:User(nil):list(nil, nil)
+local results, err = client:User():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -256,7 +256,7 @@ local results, err = client:User(nil):list(nil, nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:User(nil):load({ id = "user_id" }, nil)
+local result, err = client:User():load({ id = "user_id" })
 ```
 
 #### `remove(reqmatch, ctrl) -> any, err`
@@ -264,7 +264,7 @@ local result, err = client:User(nil):load({ id = "user_id" }, nil)
 Remove the entity matching the given criteria.
 
 ```lua
-local result, err = client:User(nil):remove({ id = "user_id" }, nil)
+local result, err = client:User():remove({ id = "user_id" })
 ```
 
 #### `update(reqdata, ctrl) -> any, err`
@@ -272,10 +272,10 @@ local result, err = client:User(nil):remove({ id = "user_id" }, nil)
 Update an existing entity. The data must include the entity `id`.
 
 ```lua
-local result, err = client:User(nil):update({
+local result, err = client:User():update({
   id = "user_id",
   -- Fields to update
-}, nil)
+})
 ```
 
 ### Common Methods

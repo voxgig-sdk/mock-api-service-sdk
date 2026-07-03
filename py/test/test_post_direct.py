@@ -109,12 +109,14 @@ def _post_direct_setup(mockres):
     env = runner.env_override({
         "MOCKAPISERVICE_TEST_POST_ENTID": {},
         "MOCKAPISERVICE_TEST_LIVE": "FALSE",
+        "MOCKAPISERVICE_APIKEY": "NONE",
     })
 
     live = env.get("MOCKAPISERVICE_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
+            "apikey": env.get("MOCKAPISERVICE_APIKEY"),
         }
         client = MockApiServiceSDK(merged_opts)
         return {

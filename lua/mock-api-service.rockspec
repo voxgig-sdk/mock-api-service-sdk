@@ -1,7 +1,11 @@
 package = "voxgig-sdk-mock-api-service"
-version = "0.0-1"
+version = "0.0.1-1"
 source = {
-  url = "git://github.com/voxgig-sdk/mock-api-service-sdk.git"
+  -- git+https (GitHub dropped git:// in 2022); pin the install to the release
+  -- tag pushed by `make publish`, and point at the lua/ subdir of the monorepo.
+  url = "git+https://github.com/voxgig-sdk/mock-api-service-sdk.git",
+  tag = "lua/v0.0.1",
+  dir = "mock-api-service-sdk/lua"
 }
 description = {
   summary = "MockApiService SDK for Lua",

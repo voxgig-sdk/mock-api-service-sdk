@@ -1,16 +1,8 @@
 # MockApiService SDK
 
-Free mock API for simulating HTTP requests and responses while building and testing client apps
+Mock API Service client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About Mock API Service
-
-[DummyAPI](https://dummyapi.online/) is a free mock API service that provides placeholder HTTP endpoints so developers can prototype, demo, and test client applications without standing up a real backend. It is intended for development and learning rather than production traffic.
-
-The SDK groups operations under three entities derived from the service's OpenAPI definition: `health`, `post`, and `user`. These cover the typical mock-data shapes (user records and post records) plus a service health probe.
-
-Because this is a public mock service, treat any returned data as fictitious and do not rely on persistence or strict SLAs. Check the [docs](https://docs.dummyapi.online/) for the current set of endpoints and request shapes before integrating.
 
 ## Try it
 
@@ -44,27 +36,31 @@ gem install mock-api-service-sdk
 luarocks install mock-api-service-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { MockApiServiceSDK } from 'mock-api-service'
 
-const client = new MockApiServiceSDK({})
+const client = new MockApiServiceSDK({
+  apikey: process.env.MOCK-API-SERVICE_APIKEY,
+})
 
+// Load health data
+const health = await client.Health().load({})
+console.log(health.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -94,9 +90,9 @@ The API exposes 3 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Health** | Service health probe used to verify that the mock API is reachable. | `/ping` |
-| **Post** | Mock blog/social post records returned for prototyping list and detail views. | `/posts` |
-| **User** | Mock user records suitable for populating profiles, auth screens, and directory UIs. | `/users` |
+| **Health** |  | `/ping` |
+| **Post** |  | `/posts` |
+| **User** |  | `/users` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -106,15 +102,17 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from mockapiservice_sdk import MockApiServiceSDK
 
-client = MockApiServiceSDK({})
+client = MockApiServiceSDK({
+    "apikey": os.environ.get("MOCK-API-SERVICE_APIKEY"),
+})
 
 
 # Load a specific health
-health, err = client.Health(None).load(
-    {"id": "example_id"}, None
-)
+health, err = client.Health().load({"id": "example_id"})
+print(health)
 ```
 
 ### PHP
@@ -123,13 +121,14 @@ health, err = client.Health(None).load(
 <?php
 require_once 'mockapiservice_sdk.php';
 
-$client = new MockApiServiceSDK([]);
+$client = new MockApiServiceSDK([
+    "apikey" => getenv("MOCK-API-SERVICE_APIKEY"),
+]);
 
 
 // Load a specific health
-[$health, $err] = $client->Health(null)->load(
-    ["id" => "example_id"], null
-);
+[$health, $err] = $client->Health()->load(["id" => "example_id"]);
+print_r($health);
 ```
 
 ### Golang
@@ -137,8 +136,13 @@ $client = new MockApiServiceSDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/mock-api-service-sdk/go"
 
-client := sdk.NewMockApiServiceSDK(map[string]any{})
+client := sdk.NewMockApiServiceSDK(map[string]any{
+    "apikey": os.Getenv("MOCK-API-SERVICE_APIKEY"),
+})
 
+// Load health data
+health, err := client.Health(nil).Load(map[string]any{}, nil)
+fmt.Println(health)
 ```
 
 ### Ruby
@@ -146,13 +150,14 @@ client := sdk.NewMockApiServiceSDK(map[string]any{})
 ```ruby
 require_relative "MockApiService_sdk"
 
-client = MockApiServiceSDK.new({})
+client = MockApiServiceSDK.new({
+  "apikey" => ENV["MOCK-API-SERVICE_APIKEY"],
+})
 
 
 # Load a specific health
-health, err = client.Health(nil).load(
-  { "id" => "example_id" }, nil
-)
+health, err = client.Health().load({ "id" => "example_id" })
+puts health
 ```
 
 ### Lua
@@ -160,13 +165,14 @@ health, err = client.Health(nil).load(
 ```lua
 local sdk = require("mock-api-service_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("MOCK-API-SERVICE_APIKEY"),
+})
 
 
 -- Load a specific health
-local health, err = client:Health(nil):load(
-  { id = "example_id" }, nil
-)
+local health, err = client:Health():load({ id = "example_id" })
+print(health)
 ```
 
 ## Unit testing in offline mode
@@ -185,25 +191,21 @@ const result = await client.Health().load({ id: 'test01' })
 ### Python
 
 ```python
-client = MockApiServiceSDK.test(None, None)
-result, err = client.Health(None).load(
-    {"id": "test01"}, None
-)
+client = MockApiServiceSDK.test()
+result, err = client.Health().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = MockApiServiceSDK::test(null, null);
-[$result, $err] = $client->Health(null)->load(
-    ["id" => "test01"], null
-);
+$client = MockApiServiceSDK::test();
+[$result, $err] = $client->Health()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.Health(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -212,19 +214,15 @@ result, err := client.Health(nil).Load(
 ### Ruby
 
 ```ruby
-client = MockApiServiceSDK.test(nil, nil)
-result, err = client.Health(nil).load(
-  { "id" => "test01" }, nil
-)
+client = MockApiServiceSDK.test
+result, err = client.Health().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:Health(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:Health():load({ id = "test01" })
 ```
 
 ## How it works
@@ -328,11 +326,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the Mock API Service
-
-- Upstream: [https://dummyapi.online/](https://dummyapi.online/)
-- API docs: [https://docs.dummyapi.online/](https://docs.dummyapi.online/)
 
 ---
 

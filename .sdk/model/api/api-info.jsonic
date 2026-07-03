@@ -16,20 +16,7 @@ main: {
       ]
       title: "Mock API Service"
       version: "1.0.0"
-      tagline: "Free mock API for simulating HTTP requests and responses while building and testing client apps"
-      homepage: "https://dummyapi.online/"
-      docs_url: "https://docs.dummyapi.online/"
-      about_md: `[DummyAPI](https://dummyapi.online/) is a free mock API service that provides placeholder HTTP endpoints so developers can prototype, demo, and test client applications without standing up a real backend. It is intended for development and learning rather than production traffic.
-
-The SDK groups operations under three entities derived from the service's OpenAPI definition: \`health\`, \`post\`, and \`user\`. These cover the typical mock-data shapes (user records and post records) plus a service health probe.
-
-Because this is a public mock service, treat any returned data as fictitious and do not rely on persistence or strict SLAs. Check the [docs](https://docs.dummyapi.online/) for the current set of endpoints and request shapes before integrating.`
-      entity_desc: {
-        health: "Service health probe used to verify that the mock API is reachable."
-        post: "Mock blog/social post records returned for prototyping list and detail views."
-        user: "Mock user records suitable for populating profiles, auth screens, and directory UIs."
-      }
-      auth: false
     }
   }
 }
+

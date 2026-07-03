@@ -67,12 +67,14 @@ function health_direct_setup($mockres)
     $env = Runner::env_override([
         "MOCKAPISERVICE_TEST_HEALTH_ENTID" => [],
         "MOCKAPISERVICE_TEST_LIVE" => "FALSE",
+        "MOCKAPISERVICE_APIKEY" => "NONE",
     ]);
 
     $live = $env["MOCKAPISERVICE_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [
+            "apikey" => $env["MOCKAPISERVICE_APIKEY"],
         ];
         $client = new MockApiServiceSDK($merged_opts);
         return [

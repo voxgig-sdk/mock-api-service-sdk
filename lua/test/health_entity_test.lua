@@ -91,6 +91,7 @@ function health_basic_setup(extra)
     ["MOCKAPISERVICE_TEST_HEALTH_ENTID"] = idmap,
     ["MOCKAPISERVICE_TEST_LIVE"] = "FALSE",
     ["MOCKAPISERVICE_TEST_EXPLAIN"] = "FALSE",
+    ["MOCKAPISERVICE_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
@@ -102,6 +103,7 @@ function health_basic_setup(extra)
   if env["MOCKAPISERVICE_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
+        apikey = env["MOCKAPISERVICE_APIKEY"],
       },
       extra or {},
     })

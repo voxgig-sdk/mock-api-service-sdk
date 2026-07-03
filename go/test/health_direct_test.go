@@ -99,12 +99,14 @@ func healthDirectSetup(mockres any) *healthDirectSetupResult {
 	env := envOverride(map[string]any{
 		"MOCKAPISERVICE_TEST_HEALTH_ENTID": map[string]any{},
 		"MOCKAPISERVICE_TEST_LIVE":    "FALSE",
+		"MOCKAPISERVICE_APIKEY":       "NONE",
 	})
 
 	live := env["MOCKAPISERVICE_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
+			"apikey": env["MOCKAPISERVICE_APIKEY"],
 		}
 		client := sdk.NewMockApiServiceSDK(mergedOpts)
 

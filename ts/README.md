@@ -1,6 +1,11 @@
 # MockApiService TypeScript SDK
 
-The TypeScript SDK for the MockApiService API. Provides a type-safe, entity-oriented interface with full async/await support.
+
+
+The TypeScript SDK for the MockApiService API — a type-safe, entity-oriented client with full async/await support.
+
+> Other languages, the CLI, and MCP server live alongside this one — see
+> the [top-level README](../README.md).
 
 
 ## Install
@@ -17,7 +22,9 @@ loading a specific record.
 ```ts
 import { MockApiServiceSDK } from 'mock-api-service'
 
-const client = new MockApiServiceSDK({})
+const client = new MockApiServiceSDK({
+  apikey: process.env.MOCK-API-SERVICE_APIKEY,
+})
 ```
 
 ### 3. Load a health
@@ -80,7 +87,7 @@ const result = await client.Planet().load({ id: 'test01' })
 You can also use the instance method:
 
 ```ts
-const client = new MockApiServiceSDK()
+const client = new MockApiServiceSDK({ apikey: '...' })
 const testClient = client.tester()
 ```
 
@@ -116,6 +123,7 @@ const logger = {
 }
 
 const client = new MockApiServiceSDK({
+  apikey: '...',
   extend: [logger],
 })
 ```
@@ -126,6 +134,7 @@ Create a `.env.local` file at the project root:
 
 ```
 MOCK-API-SERVICE_TEST_LIVE=TRUE
+MOCK-API-SERVICE_APIKEY=<your-key>
 ```
 
 Then run:
@@ -143,6 +152,7 @@ cd ts && npm test
 
 ```ts
 new MockApiServiceSDK(options?: {
+  apikey?: string
   base?: string
   prefix?: string
   suffix?: string
@@ -153,6 +163,7 @@ new MockApiServiceSDK(options?: {
 
 | Option | Type | Description |
 | --- | --- | --- |
+| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
