@@ -194,14 +194,12 @@ func postDirectSetup(mockres any) *postDirectSetupResult {
 	env := envOverride(map[string]any{
 		"MOCKAPISERVICE_TEST_POST_ENTID": map[string]any{},
 		"MOCKAPISERVICE_TEST_LIVE":    "FALSE",
-		"MOCKAPISERVICE_APIKEY":       "NONE",
 	})
 
 	live := env["MOCKAPISERVICE_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
-			"apikey": env["MOCKAPISERVICE_APIKEY"],
 		}
 		client := sdk.NewMockApiServiceSDK(mergedOpts)
 

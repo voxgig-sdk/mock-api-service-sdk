@@ -197,7 +197,6 @@ func userBasicSetup(extra map[string]any) *entityTestSetup {
 		"MOCKAPISERVICE_TEST_USER_ENTID": idmap,
 		"MOCKAPISERVICE_TEST_LIVE":      "FALSE",
 		"MOCKAPISERVICE_TEST_EXPLAIN":   "FALSE",
-		"MOCKAPISERVICE_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["MOCKAPISERVICE_TEST_USER_ENTID"])
@@ -208,7 +207,6 @@ func userBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["MOCKAPISERVICE_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
-				"apikey": env["MOCKAPISERVICE_APIKEY"],
 			},
 			extra,
 		})

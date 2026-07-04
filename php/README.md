@@ -9,9 +9,10 @@ The PHP SDK for the MockApiService API — an entity-oriented client using PHP c
 
 
 ## Install
-```bash
-composer require voxgig-sdk/mock-api-service
-```
+This package is not yet published to Packagist. Install it from the
+GitHub release tag (`php/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/mock-api-service-sdk/releases](https://github.com/voxgig-sdk/mock-api-service-sdk/releases)
 
 
 ## Tutorial: your first API call
@@ -25,17 +26,18 @@ loading a specific record.
 <?php
 require_once 'mockapiservice_sdk.php';
 
-$client = new MockApiServiceSDK([
-    "apikey" => getenv("MOCK-API-SERVICE_APIKEY"),
-]);
+$client = new MockApiServiceSDK();
 ```
 
 ### 3. Load a health
 
 ```php
-[$result, $err] = $client->Health()->load(["id" => "example_id"]);
-if ($err) { throw new \Exception($err); }
-print_r($result);
+try {
+    $result = $client->health()->load(["id" => "example_id"]);
+    print_r($result);
+} catch (\Exception $err) {
+    echo "Error: " . $err->getMessage();
+}
 ```
 
 
@@ -46,28 +48,31 @@ print_r($result);
 For endpoints not covered by entity methods:
 
 ```php
-[$result, $err] = $client->direct([
+// direct() is the raw-HTTP escape hatch: it returns a result array
+// (it does not throw). Branch on $result["ok"].
+$result = $client->direct([
     "path" => "/api/resource/{id}",
     "method" => "GET",
     "params" => ["id" => "example"],
 ]);
-if ($err) { throw new \Exception($err); }
 
 if ($result["ok"]) {
     echo $result["status"];  // 200
     print_r($result["data"]);  // response body
+} else {
+    echo "Error: " . $result["err"]->getMessage();
 }
 ```
 
 ### Prepare a request without sending it
 
 ```php
-[$fetchdef, $err] = $client->prepare([
+// prepare() throws on error and returns the fetch definition.
+$fetchdef = $client->prepare([
     "path" => "/api/resource/{id}",
     "method" => "DELETE",
     "params" => ["id" => "example"],
 ]);
-if ($err) { throw new \Exception($err); }
 
 echo $fetchdef["url"];
 echo $fetchdef["method"];
@@ -81,7 +86,7 @@ Create a mock client for unit testing — no server required:
 ```php
 $client = MockApiServiceSDK::test();
 
-[$result, $err] = $client->MockApiService()->load(["id" => "test01"]);
+$result = $client->health()->load(["id" => "test01"]);
 // $result contains mock response data
 ```
 
@@ -115,8 +120,7 @@ $client = new MockApiServiceSDK([
 Create a `.env.local` file at the project root:
 
 ```
-MOCK-API-SERVICE_TEST_LIVE=TRUE
-MOCK-API-SERVICE_APIKEY=<your-key>
+MOCK_API_SERVICE_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -139,7 +143,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -187,8 +190,12 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `[$result, $err]`. The first value is an
-`array` with these keys:
+Entity operations return the bare result data (an `array` for single-entity
+ops, a `list` for `list`) and throw on error. Wrap calls in
+`try`/`catch` to handle failures.
+
+The `direct()` escape hatch never throws — it returns a result `array`
+you branch on via `$result["ok"]`:
 
 | Key | Type | Description |
 | --- | --- | --- |
@@ -247,7 +254,7 @@ API path: `/users`
 
 ### Health
 
-Create an instance: `const health = client.Health()`
+Create an instance: `const health = client.health`
 
 #### Operations
 
@@ -265,13 +272,13 @@ Create an instance: `const health = client.Health()`
 #### Example: Load
 
 ```ts
-const health = await client.Health().load({ id: 'health_id' })
+const health = await client.health.load({ id: 'health_id' })
 ```
 
 
 ### Post
 
-Create an instance: `const post = client.Post()`
+Create an instance: `const post = client.post`
 
 #### Operations
 
@@ -293,19 +300,19 @@ Create an instance: `const post = client.Post()`
 #### Example: Load
 
 ```ts
-const post = await client.Post().load({ id: 'post_id' })
+const post = await client.post.load({ id: 'post_id' })
 ```
 
 #### Example: List
 
 ```ts
-const posts = await client.Post().list()
+const posts = await client.post.list()
 ```
 
 
 ### User
 
-Create an instance: `const user = client.User()`
+Create an instance: `const user = client.user`
 
 #### Operations
 
@@ -330,19 +337,19 @@ Create an instance: `const user = client.User()`
 #### Example: Load
 
 ```ts
-const user = await client.User().load({ id: 'user_id' })
+const user = await client.user.load({ id: 'user_id' })
 ```
 
 #### Example: List
 
 ```ts
-const users = await client.User().list()
+const users = await client.user.list()
 ```
 
 #### Example: Create
 
 ```ts
-const user = await client.User().create({
+const user = await client.user.create({
 })
 ```
 
@@ -418,11 +425,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$moon = $client->Moon();
-[$result, $err] = $moon->load(["planet_id" => "earth", "id" => "luna"]);
+$health = $client->health();
+$health->load(["id" => "example_id"]);
 
-// $moon->dataGet() now returns the loaded moon data
-// $moon->matchGet() returns the last match criteria
+// $health->dataGet() now returns the loaded health data
+// $health->matchGet() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

@@ -244,18 +244,57 @@ end
 
 
 
+-- Idiomatic facade: client:health():list() / client:health():load({ id = ... })
+function MockApiServiceSDK:health(data)
+  local EntityMod = require("entity.health_entity")
+  if data == nil then
+    if self._health == nil then
+      self._health = EntityMod.new(self, nil)
+    end
+    return self._health
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:health() instead.
 function MockApiServiceSDK:Health(data)
   local EntityMod = require("entity.health_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:post():list() / client:post():load({ id = ... })
+function MockApiServiceSDK:post(data)
+  local EntityMod = require("entity.post_entity")
+  if data == nil then
+    if self._post == nil then
+      self._post = EntityMod.new(self, nil)
+    end
+    return self._post
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:post() instead.
 function MockApiServiceSDK:Post(data)
   local EntityMod = require("entity.post_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:user():list() / client:user():load({ id = ... })
+function MockApiServiceSDK:user(data)
+  local EntityMod = require("entity.user_entity")
+  if data == nil then
+    if self._user == nil then
+      self._user = EntityMod.new(self, nil)
+    end
+    return self._user
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:user() instead.
 function MockApiServiceSDK:User(data)
   local EntityMod = require("entity.user_entity")
   return EntityMod.new(self, data)

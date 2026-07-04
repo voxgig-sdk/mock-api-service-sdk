@@ -9,9 +9,12 @@ The TypeScript SDK for the MockApiService API — a type-safe, entity-oriented c
 
 
 ## Install
-```bash
-npm install @voxgig-sdk/mock-api-service
-```
+This package is not yet published to npm. Install it from the GitHub
+release tag (`ts/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/mock-api-service-sdk/releases](https://github.com/voxgig-sdk/mock-api-service-sdk/releases)
+
+
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
@@ -20,17 +23,15 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { MockApiServiceSDK } from 'mock-api-service'
+import { MockApiServiceSDK } from '@voxgig-sdk/mock-api-service'
 
-const client = new MockApiServiceSDK({
-  apikey: process.env.MOCK-API-SERVICE_APIKEY,
-})
+const client = new MockApiServiceSDK()
 ```
 
 ### 3. Load a health
 
 ```ts
-const result = await client.Health().load({ id: 'example_id' })
+const result = await client.health.load({ id: 'example_id' })
 
 if (result.ok) {
   console.log(result.data)
@@ -79,7 +80,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = MockApiServiceSDK.test()
 
-const result = await client.Planet().load({ id: 'test01' })
+const result = await client.health.load({ id: 'test01' })
 // result.ok === true
 // result.data contains mock response data
 ```
@@ -87,7 +88,7 @@ const result = await client.Planet().load({ id: 'test01' })
 You can also use the instance method:
 
 ```ts
-const client = new MockApiServiceSDK({ apikey: '...' })
+const client = new MockApiServiceSDK()
 const testClient = client.tester()
 ```
 
@@ -96,7 +97,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Planet()
+const entity = client.health
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -123,7 +124,6 @@ const logger = {
 }
 
 const client = new MockApiServiceSDK({
-  apikey: '...',
   extend: [logger],
 })
 ```
@@ -133,8 +133,7 @@ const client = new MockApiServiceSDK({
 Create a `.env.local` file at the project root:
 
 ```
-MOCK-API-SERVICE_TEST_LIVE=TRUE
-MOCK-API-SERVICE_APIKEY=<your-key>
+MOCK_API_SERVICE_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -152,7 +151,6 @@ cd ts && npm test
 
 ```ts
 new MockApiServiceSDK(options?: {
-  apikey?: string
   base?: string
   prefix?: string
   suffix?: string
@@ -163,7 +161,6 @@ new MockApiServiceSDK(options?: {
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -297,7 +294,7 @@ API path: `/users`
 
 ### Health
 
-Create an instance: `const health = client.Health()`
+Create an instance: `const health = client.health`
 
 #### Operations
 
@@ -315,13 +312,13 @@ Create an instance: `const health = client.Health()`
 #### Example: Load
 
 ```ts
-const health = await client.Health().load({ id: 'health_id' })
+const health = await client.health.load({ id: 'health_id' })
 ```
 
 
 ### Post
 
-Create an instance: `const post = client.Post()`
+Create an instance: `const post = client.post`
 
 #### Operations
 
@@ -343,19 +340,19 @@ Create an instance: `const post = client.Post()`
 #### Example: Load
 
 ```ts
-const post = await client.Post().load({ id: 'post_id' })
+const post = await client.post.load({ id: 'post_id' })
 ```
 
 #### Example: List
 
 ```ts
-const posts = await client.Post().list()
+const posts = await client.post.list()
 ```
 
 
 ### User
 
-Create an instance: `const user = client.User()`
+Create an instance: `const user = client.user`
 
 #### Operations
 
@@ -380,19 +377,19 @@ Create an instance: `const user = client.User()`
 #### Example: Load
 
 ```ts
-const user = await client.User().load({ id: 'user_id' })
+const user = await client.user.load({ id: 'user_id' })
 ```
 
 #### Example: List
 
 ```ts
-const users = await client.User().list()
+const users = await client.user.list()
 ```
 
 #### Example: Create
 
 ```ts
-const user = await client.User().create({
+const user = await client.user.create({
 })
 ```
 
@@ -454,7 +451,7 @@ mock-api-service/
 Import the SDK from the package root:
 
 ```ts
-import { MockApiServiceSDK } from 'mock-api-service'
+import { MockApiServiceSDK } from '@voxgig-sdk/mock-api-service'
 ```
 
 ### Entity state
@@ -464,11 +461,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const moon = client.Moon()
-await moon.load({ planet_id: 'earth', id: 'luna' })
+const health = client.health
+await health.load({ id: "example_id" })
 
-// moon.data() now returns the loaded moon data
-// moon.match() returns { planet_id: 'earth', id: 'luna' }
+// health.data() now returns the loaded health data
+// health.match() returns { id: "example_id" }
 ```
 
 Call `make()` to create a fresh instance with the same configuration

@@ -4,6 +4,8 @@ import { HealthEntity } from './entity/HealthEntity'
 import { PostEntity } from './entity/PostEntity'
 import { UserEntity } from './entity/UserEntity'
 
+export type * from './MockApiServiceTypes'
+
 
 import { inspect } from 'node:util'
 
@@ -204,18 +206,42 @@ class MockApiServiceSDK {
 
 
 
+  _health?: HealthEntity
+
+  // Idiomatic facade: `client.health.list()` / `client.health.load({ id })`.
+  get health(): HealthEntity {
+    return (this._health ??= new HealthEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.health` instead. */
   Health(data?: any) {
     const self = this
     return new HealthEntity(self,data)
   }
 
 
+  _post?: PostEntity
+
+  // Idiomatic facade: `client.post.list()` / `client.post.load({ id })`.
+  get post(): PostEntity {
+    return (this._post ??= new PostEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.post` instead. */
   Post(data?: any) {
     const self = this
     return new PostEntity(self,data)
   }
 
 
+  _user?: UserEntity
+
+  // Idiomatic facade: `client.user.list()` / `client.user.load({ id })`.
+  get user(): UserEntity {
+    return (this._user ??= new UserEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.user` instead. */
   User(data?: any) {
     const self = this
     return new UserEntity(self,data)

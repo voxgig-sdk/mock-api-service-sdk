@@ -245,16 +245,25 @@ func (sdk *MockApiServiceSDK) Direct(fetchargs map[string]any) (map[string]any, 
 }
 
 
+// Health returns a Health entity bound to this client.
+// Idiomatic usage: client.Health(nil).List(nil, nil) or
+// client.Health(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *MockApiServiceSDK) Health(data map[string]any) MockApiServiceEntity {
 	return NewHealthEntityFunc(sdk, data)
 }
 
 
+// Post returns a Post entity bound to this client.
+// Idiomatic usage: client.Post(nil).List(nil, nil) or
+// client.Post(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *MockApiServiceSDK) Post(data map[string]any) MockApiServiceEntity {
 	return NewPostEntityFunc(sdk, data)
 }
 
 
+// User returns a User entity bound to this client.
+// Idiomatic usage: client.User(nil).List(nil, nil) or
+// client.User(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *MockApiServiceSDK) User(data map[string]any) MockApiServiceEntity {
 	return NewUserEntityFunc(sdk, data)
 }

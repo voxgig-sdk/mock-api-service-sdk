@@ -18,7 +18,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `object` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -134,7 +133,7 @@ Alias for `MockApiServiceSDK.test()`.
 ## HealthEntity
 
 ```ts
-const health = client.Health()
+const health = client.health
 ```
 
 ### Fields
@@ -151,7 +150,7 @@ const health = client.Health()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Health().load({ id: 'health_id' })
+const result = await client.health.load({ id: 'health_id' })
 ```
 
 ### Common Methods
@@ -185,7 +184,7 @@ Return a copy of the entity options.
 ## PostEntity
 
 ```ts
-const post = client.Post()
+const post = client.post
 ```
 
 ### Fields
@@ -205,7 +204,7 @@ const post = client.Post()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Post().list()
+const results = await client.post.list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -213,7 +212,7 @@ const results = await client.Post().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Post().load({ id: 'post_id' })
+const result = await client.post.load({ id: 'post_id' })
 ```
 
 ### Common Methods
@@ -247,7 +246,7 @@ Return a copy of the entity options.
 ## UserEntity
 
 ```ts
-const user = client.User()
+const user = client.user
 ```
 
 ### Fields
@@ -277,7 +276,7 @@ const user = client.User()
 Create a new entity with the given data.
 
 ```ts
-const result = await client.User().create({
+const result = await client.user.create({
 })
 ```
 
@@ -286,7 +285,7 @@ const result = await client.User().create({
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.User().list()
+const results = await client.user.list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -294,7 +293,7 @@ const results = await client.User().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.User().load({ id: 'user_id' })
+const result = await client.user.load({ id: 'user_id' })
 ```
 
 #### `remove(match: object, ctrl?: object)`
@@ -302,7 +301,7 @@ const result = await client.User().load({ id: 'user_id' })
 Remove the entity matching the given criteria.
 
 ```ts
-const result = await client.User().remove({ id: 'user_id' })
+const result = await client.user.remove({ id: 'user_id' })
 ```
 
 #### `update(data: object, ctrl?: object)`
@@ -310,7 +309,7 @@ const result = await client.User().remove({ id: 'user_id' })
 Update an existing entity. The data must include the entity `id`.
 
 ```ts
-const result = await client.User().update({
+const result = await client.user.update({
   id: 'user_id',
   // Fields to update
 })

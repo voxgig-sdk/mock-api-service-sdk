@@ -62,14 +62,12 @@ function health_direct_setup(mockres)
   local env = runner.env_override({
     ["MOCKAPISERVICE_TEST_HEALTH_ENTID"] = {},
     ["MOCKAPISERVICE_TEST_LIVE"] = "FALSE",
-    ["MOCKAPISERVICE_APIKEY"] = "NONE",
   })
 
   local live = env["MOCKAPISERVICE_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {
-      apikey = env["MOCKAPISERVICE_APIKEY"],
     }
     local client = sdk.new(merged_opts)
     return {

@@ -15,9 +15,6 @@ module MockApiServiceConfig
       },
       "options" => {
         "base" => "https://dummyapi.online/api",
-        "auth" => {
-          "prefix" => "Bearer",
-        },
         "headers" => {
           "content-type" => "application/json",
         },
@@ -177,6 +174,7 @@ module MockApiServiceConfig
                         "orig" => "id",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                     ],
                   },
@@ -350,6 +348,7 @@ module MockApiServiceConfig
                         "orig" => "id",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                     ],
                   },
@@ -388,6 +387,7 @@ module MockApiServiceConfig
                         "orig" => "id",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                     ],
                   },
@@ -426,6 +426,7 @@ module MockApiServiceConfig
                         "orig" => "id",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                     ],
                   },

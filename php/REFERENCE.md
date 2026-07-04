@@ -20,7 +20,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `$options` | `array` | SDK configuration options. |
-| `$options["apikey"]` | `string` | API key for authentication. |
 | `$options["base"]` | `string` | Base URL for API requests. |
 | `$options["prefix"]` | `string` | URL prefix appended after base. |
 | `$options["suffix"]` | `string` | URL suffix appended after path. |
@@ -64,7 +63,10 @@ Return a copy of the SDK utility object.
 
 #### `direct(array $fetchargs = []): array`
 
-Make a direct HTTP request to any API endpoint. Returns `[$result, $err]`.
+Make a direct HTTP request to any API endpoint. This is the raw-HTTP escape
+hatch: it does **not** throw. It returns a result array
+`["ok" => bool, "status" => int, "headers" => array, "data" => mixed]`, or
+`["ok" => false, "err" => \Exception]` on failure. Branch on `$result["ok"]`.
 
 **Parameters:**
 
@@ -78,11 +80,12 @@ Make a direct HTTP request to any API endpoint. Returns `[$result, $err]`.
 | `$fetchargs["body"]` | `mixed` | Request body (arrays are JSON-serialized). |
 | `$fetchargs["ctrl"]` | `array` | Control options. |
 
-**Returns:** `array [$result, $err]`
+**Returns:** `array` — the result dict (see above); never throws.
 
-#### `prepare(array $fetchargs = []): array`
+#### `prepare(array $fetchargs = []): mixed`
 
-Prepare a fetch definition without sending the request. Returns `[$fetchdef, $err]`.
+Prepare a fetch definition without sending the request. Returns the
+`$fetchdef` array. Throws on error.
 
 
 ---
@@ -90,7 +93,7 @@ Prepare a fetch definition without sending the request. Returns `[$fetchdef, $er
 ## HealthEntity
 
 ```php
-$health = $client->Health();
+$health = $client->health();
 ```
 
 ### Fields
@@ -102,12 +105,12 @@ $health = $client->Health();
 
 ### Operations
 
-#### `load(array $reqmatch, ?array $ctrl = null): array`
+#### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Throws on error.
 
 ```php
-[$result, $err] = $client->Health()->load(["id" => "health_id"]);
+$result = $client->health()->load(["id" => "health_id"]);
 ```
 
 ### Common Methods
@@ -143,7 +146,7 @@ Return the entity name.
 ## PostEntity
 
 ```php
-$post = $client->Post();
+$post = $client->post();
 ```
 
 ### Fields
@@ -158,20 +161,20 @@ $post = $client->Post();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->Post()->list([]);
+$results = $client->post()->list([]);
 ```
 
-#### `load(array $reqmatch, ?array $ctrl = null): array`
+#### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Throws on error.
 
 ```php
-[$result, $err] = $client->Post()->load(["id" => "post_id"]);
+$result = $client->post()->load(["id" => "post_id"]);
 ```
 
 ### Common Methods
@@ -207,7 +210,7 @@ Return the entity name.
 ## UserEntity
 
 ```php
-$user = $client->User();
+$user = $client->user();
 ```
 
 ### Fields
@@ -232,45 +235,45 @@ $user = $client->User();
 
 ### Operations
 
-#### `create(array $reqdata, ?array $ctrl = null): array`
+#### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Throws on error.
 
 ```php
-[$result, $err] = $client->User()->create([
+$result = $client->user()->create([
 ]);
 ```
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->User()->list([]);
+$results = $client->user()->list([]);
 ```
 
-#### `load(array $reqmatch, ?array $ctrl = null): array`
+#### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Throws on error.
 
 ```php
-[$result, $err] = $client->User()->load(["id" => "user_id"]);
+$result = $client->user()->load(["id" => "user_id"]);
 ```
 
-#### `remove(array $reqmatch, ?array $ctrl = null): array`
+#### `remove(array $reqmatch, ?array $ctrl = null): mixed`
 
-Remove the entity matching the given criteria.
+Remove the entity matching the given criteria. Throws on error.
 
 ```php
-[$result, $err] = $client->User()->remove(["id" => "user_id"]);
+$result = $client->user()->remove(["id" => "user_id"]);
 ```
 
-#### `update(array $reqdata, ?array $ctrl = null): array`
+#### `update(array $reqdata, ?array $ctrl = null): mixed`
 
-Update an existing entity. The data must include the entity `id`.
+Update an existing entity. The data must include the entity `id`. Throws on error.
 
 ```php
-[$result, $err] = $client->User()->update([
+$result = $client->user()->update([
   "id" => "user_id",
   // Fields to update
 ]);
