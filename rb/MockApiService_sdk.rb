@@ -208,39 +208,21 @@ class MockApiServiceSDK
   end
 
 
-  # Idiomatic facade: client.health.list / client.health.load({ "id" => ... })
-  def health
-    require_relative 'entity/health_entity'
-    @health ||= HealthEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.health instead.
+  # Canonical facade: client.Health.list / client.Health.load({ "id" => ... })
   def Health(data = nil)
     require_relative 'entity/health_entity'
     HealthEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.post.list / client.post.load({ "id" => ... })
-  def post
-    require_relative 'entity/post_entity'
-    @post ||= PostEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.post instead.
+  # Canonical facade: client.Post.list / client.Post.load({ "id" => ... })
   def Post(data = nil)
     require_relative 'entity/post_entity'
     PostEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.user.list / client.user.load({ "id" => ... })
-  def user
-    require_relative 'entity/user_entity'
-    @user ||= UserEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.user instead.
+  # Canonical facade: client.User.list / client.User.load({ "id" => ... })
   def User(data = nil)
     require_relative 'entity/user_entity'
     UserEntity.new(self, data)

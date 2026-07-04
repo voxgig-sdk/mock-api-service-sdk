@@ -94,7 +94,7 @@ same parameters as `direct()`. Raises on error.
 ## HealthEntity
 
 ```ruby
-health = client.health
+health = client.Health
 ```
 
 ### Fields
@@ -111,7 +111,7 @@ health = client.health
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.health.load({ "id" => "health_id" })
+result = client.Health.load({ "id" => "health_id" })
 ```
 
 ### Common Methods
@@ -147,7 +147,7 @@ Return the entity name.
 ## PostEntity
 
 ```ruby
-post = client.post
+post = client.Post
 ```
 
 ### Fields
@@ -167,7 +167,7 @@ post = client.post
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.post.list(nil)
+results = client.Post.list(nil)
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -175,7 +175,7 @@ results = client.post.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.post.load({ "id" => "post_id" })
+result = client.Post.load({ "id" => "post_id" })
 ```
 
 ### Common Methods
@@ -211,7 +211,7 @@ Return the entity name.
 ## UserEntity
 
 ```ruby
-user = client.user
+user = client.User
 ```
 
 ### Fields
@@ -241,7 +241,7 @@ user = client.user
 Create a new entity with the given data. Raises on error.
 
 ```ruby
-result = client.user.create({
+result = client.User.create({
 })
 ```
 
@@ -250,7 +250,7 @@ result = client.user.create({
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.user.list(nil)
+results = client.User.list(nil)
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -258,7 +258,7 @@ results = client.user.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.user.load({ "id" => "user_id" })
+result = client.User.load({ "id" => "user_id" })
 ```
 
 #### `remove(reqmatch, ctrl = nil) -> result`
@@ -266,7 +266,7 @@ result = client.user.load({ "id" => "user_id" })
 Remove the entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.user.remove({ "id" => "user_id" })
+result = client.User.remove({ "id" => "user_id" })
 ```
 
 #### `update(reqdata, ctrl = nil) -> result`
@@ -274,7 +274,7 @@ result = client.user.remove({ "id" => "user_id" })
 Update an existing entity. The data must include the entity `id`. Raises on error.
 
 ```ruby
-result = client.user.update({
+result = client.User.update({
   "id" => "user_id",
   # Fields to update
 })

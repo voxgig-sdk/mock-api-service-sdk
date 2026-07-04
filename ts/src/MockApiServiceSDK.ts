@@ -206,42 +206,21 @@ class MockApiServiceSDK {
 
 
 
-  _health?: HealthEntity
-
-  // Idiomatic facade: `client.health.list()` / `client.health.load({ id })`.
-  get health(): HealthEntity {
-    return (this._health ??= new HealthEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.health` instead. */
+  // Entity access: `client.Health().list()` / `client.Health().load({ id })`.
   Health(data?: any) {
     const self = this
     return new HealthEntity(self,data)
   }
 
 
-  _post?: PostEntity
-
-  // Idiomatic facade: `client.post.list()` / `client.post.load({ id })`.
-  get post(): PostEntity {
-    return (this._post ??= new PostEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.post` instead. */
+  // Entity access: `client.Post().list()` / `client.Post().load({ id })`.
   Post(data?: any) {
     const self = this
     return new PostEntity(self,data)
   }
 
 
-  _user?: UserEntity
-
-  // Idiomatic facade: `client.user.list()` / `client.user.load({ id })`.
-  get user(): UserEntity {
-    return (this._user ??= new UserEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.user` instead. */
+  // Entity access: `client.User().list()` / `client.User().load({ id })`.
   User(data?: any) {
     const self = this
     return new UserEntity(self,data)

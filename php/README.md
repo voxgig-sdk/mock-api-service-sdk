@@ -33,9 +33,10 @@ $client = new MockApiServiceSDK();
 
 ```php
 try {
-    $result = $client->health()->load(["id" => "example_id"]);
-    print_r($result);
-} catch (\Exception $err) {
+    // load() returns the bare Health record (throws on error).
+    $health = $client->Health()->load(["id" => "example_id"]);
+    print_r($health);
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -81,13 +82,17 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```php
-$client = MockApiServiceSDK::test();
+$client = MockApiServiceSDK::test([
+    "entity" => ["health" => ["test01" => ["id" => "test01"]]],
+]);
 
-$result = $client->health()->load(["id" => "test01"]);
-// $result contains mock response data
+// load() returns the bare mock record (throws on error).
+$health = $client->Health()->load(["id" => "test01"]);
+print_r($health);
 ```
 
 ### Use a custom fetch function
@@ -168,7 +173,7 @@ Creates a test-mode client with mock transport. Both arguments may be `null`.
 | `direct` | `(array $fetchargs): array` | Build and send an HTTP request. |
 | `Health` | `($data): HealthEntity` | Create a Health entity instance. |
 | `Post` | `($data): PostEntity` | Create a Post entity instance. |
-| `User` | `($data): UserEntity` | Create a User entity instance. |
+| `User` | `($data): UserEntity` | Create an User entity instance. |
 
 ### Entity interface
 
@@ -254,7 +259,7 @@ API path: `/users`
 
 ### Health
 
-Create an instance: `const health = client.health`
+Create an instance: `$health = $client->Health();`
 
 #### Operations
 
@@ -271,14 +276,15 @@ Create an instance: `const health = client.health`
 
 #### Example: Load
 
-```ts
-const health = await client.health.load({ id: 'health_id' })
+```php
+// load() returns the bare Health record (throws on error).
+$health = $client->Health()->load(["id" => "health_id"]);
 ```
 
 
 ### Post
 
-Create an instance: `const post = client.post`
+Create an instance: `$post = $client->Post();`
 
 #### Operations
 
@@ -299,20 +305,22 @@ Create an instance: `const post = client.post`
 
 #### Example: Load
 
-```ts
-const post = await client.post.load({ id: 'post_id' })
+```php
+// load() returns the bare Post record (throws on error).
+$post = $client->Post()->load(["id" => "post_id"]);
 ```
 
 #### Example: List
 
-```ts
-const posts = await client.post.list()
+```php
+// list() returns an array of Post records (throws on error).
+$posts = $client->Post()->list();
 ```
 
 
 ### User
 
-Create an instance: `const user = client.user`
+Create an instance: `$user = $client->User();`
 
 #### Operations
 
@@ -336,21 +344,23 @@ Create an instance: `const user = client.user`
 
 #### Example: Load
 
-```ts
-const user = await client.user.load({ id: 'user_id' })
+```php
+// load() returns the bare User record (throws on error).
+$user = $client->User()->load(["id" => "user_id"]);
 ```
 
 #### Example: List
 
-```ts
-const users = await client.user.list()
+```php
+// list() returns an array of User records (throws on error).
+$users = $client->User()->list();
 ```
 
 #### Example: Create
 
-```ts
-const user = await client.user.create({
-})
+```php
+$user = $client->User()->create([
+]);
 ```
 
 
@@ -425,7 +435,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$health = $client->health();
+$health = $client->Health();
 $health->load(["id" => "example_id"]);
 
 // $health->dataGet() now returns the loaded health data

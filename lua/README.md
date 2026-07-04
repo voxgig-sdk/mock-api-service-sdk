@@ -34,9 +34,9 @@ local client = sdk.new()
 ### 3. Load a health
 
 ```lua
-local result, err = client:health():load({ id = "example_id" })
+local health, err = client:Health():load({ id = "example_id" })
 if err then error(err) end
-print(result)
+print(health)
 ```
 
 
@@ -82,8 +82,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:health():load({ id = "test01" })
--- result contains mock response data
+local result, err = client:Health():load({ id = "test01" })
+-- result is the loaded data; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -163,7 +163,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `direct` | `(fetchargs) -> table, err` | Build and send an HTTP request. |
 | `Health` | `(data) -> HealthEntity` | Create a Health entity instance. |
 | `Post` | `(data) -> PostEntity` | Create a Post entity instance. |
-| `User` | `(data) -> UserEntity` | Create a User entity instance. |
+| `User` | `(data) -> UserEntity` | Create an User entity instance. |
 
 ### Entity interface
 
@@ -185,17 +185,22 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(any, err)`. The first value is a
-`table` with these keys:
+Entity operations return `(value, err)`. The `value` is the operation's
+data **directly** — there is no wrapper:
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `ok` | `boolean` | `true` if the HTTP status is 2xx. |
-| `status` | `number` | HTTP status code. |
-| `headers` | `table` | Response headers. |
-| `data` | `any` | Parsed JSON response body. |
+| Operation | `value` |
+| --- | --- |
+| `load` / `create` / `update` / `remove` | the entity record (a `table`) |
+| `list` | an array (`table`) of entity records |
 
-On error, `ok` is `false` and `err` contains the error value.
+Check `err` first (it is non-`nil` on failure), then use `value`:
+
+    local health, err = client:Health():load({ id = "example_id" })
+    if err then error(err) end
+    -- health is the loaded record
+
+Only `direct()` returns a response envelope — a `table` with `ok`,
+`status`, `headers`, and `data` keys.
 
 ### Entities
 
@@ -245,7 +250,7 @@ API path: `/users`
 
 ### Health
 
-Create an instance: `const health = client.health`
+Create an instance: `local health = client:Health(nil)`
 
 #### Operations
 
@@ -262,14 +267,14 @@ Create an instance: `const health = client.health`
 
 #### Example: Load
 
-```ts
-const health = await client.health.load({ id: 'health_id' })
+```lua
+local health, err = client:Health():load({ id = "health_id" })
 ```
 
 
 ### Post
 
-Create an instance: `const post = client.post`
+Create an instance: `local post = client:Post(nil)`
 
 #### Operations
 
@@ -290,20 +295,20 @@ Create an instance: `const post = client.post`
 
 #### Example: Load
 
-```ts
-const post = await client.post.load({ id: 'post_id' })
+```lua
+local post, err = client:Post():load({ id = "post_id" })
 ```
 
 #### Example: List
 
-```ts
-const posts = await client.post.list()
+```lua
+local posts, err = client:Post():list()
 ```
 
 
 ### User
 
-Create an instance: `const user = client.user`
+Create an instance: `local user = client:User(nil)`
 
 #### Operations
 
@@ -327,20 +332,20 @@ Create an instance: `const user = client.user`
 
 #### Example: Load
 
-```ts
-const user = await client.user.load({ id: 'user_id' })
+```lua
+local user, err = client:User():load({ id = "user_id" })
 ```
 
 #### Example: List
 
-```ts
-const users = await client.user.list()
+```lua
+local users, err = client:User():list()
 ```
 
 #### Example: Create
 
-```ts
-const user = await client.user.create({
+```lua
+local user, err = client:User():create({
 })
 ```
 
@@ -416,7 +421,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local health = client:health()
+local health = client:Health()
 health:load({ id = "example_id" })
 
 -- health:data_get() now returns the loaded health data

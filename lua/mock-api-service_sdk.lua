@@ -244,8 +244,9 @@ end
 
 
 
--- Idiomatic facade: client:health():list() / client:health():load({ id = ... })
-function MockApiServiceSDK:health(data)
+-- Idiomatic facade: client:Health():list() / client:Health():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function MockApiServiceSDK:Health(data)
   local EntityMod = require("entity.health_entity")
   if data == nil then
     if self._health == nil then
@@ -256,15 +257,10 @@ function MockApiServiceSDK:health(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:health() instead.
-function MockApiServiceSDK:Health(data)
-  local EntityMod = require("entity.health_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:post():list() / client:post():load({ id = ... })
-function MockApiServiceSDK:post(data)
+-- Idiomatic facade: client:Post():list() / client:Post():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function MockApiServiceSDK:Post(data)
   local EntityMod = require("entity.post_entity")
   if data == nil then
     if self._post == nil then
@@ -275,15 +271,10 @@ function MockApiServiceSDK:post(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:post() instead.
-function MockApiServiceSDK:Post(data)
-  local EntityMod = require("entity.post_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:user():list() / client:user():load({ id = ... })
-function MockApiServiceSDK:user(data)
+-- Idiomatic facade: client:User():list() / client:User():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function MockApiServiceSDK:User(data)
   local EntityMod = require("entity.user_entity")
   if data == nil then
     if self._user == nil then
@@ -291,12 +282,6 @@ function MockApiServiceSDK:user(data)
     end
     return self._user
   end
-  return EntityMod.new(self, data)
-end
-
--- Deprecated: use client:user() instead.
-function MockApiServiceSDK:User(data)
-  local EntityMod = require("entity.user_entity")
   return EntityMod.new(self, data)
 end
 

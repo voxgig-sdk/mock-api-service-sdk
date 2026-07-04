@@ -220,57 +220,27 @@ class MockApiServiceSDK:
         }
 
 
-    @property
-    def health(self):
-        """Idiomatic facade: client.health.list() / client.health.load({"id": ...})."""
-        from entity.health_entity import HealthEntity
-        cached = getattr(self, "_health", None)
-        if cached is None:
-            cached = HealthEntity(self, None)
-            self._health = cached
-        return cached
-
-    def Health(self, data=None):
-        # Deprecated: use client.health instead.
+    def Health(self, data=None) -> "HealthEntity":
+        """Entity factory: client.Health().list({}) / client.Health().load({"id": ...})."""
         from entity.health_entity import HealthEntity
         return HealthEntity(self, data)
 
 
-    @property
-    def post(self):
-        """Idiomatic facade: client.post.list() / client.post.load({"id": ...})."""
-        from entity.post_entity import PostEntity
-        cached = getattr(self, "_post", None)
-        if cached is None:
-            cached = PostEntity(self, None)
-            self._post = cached
-        return cached
-
-    def Post(self, data=None):
-        # Deprecated: use client.post instead.
+    def Post(self, data=None) -> "PostEntity":
+        """Entity factory: client.Post().list({}) / client.Post().load({"id": ...})."""
         from entity.post_entity import PostEntity
         return PostEntity(self, data)
 
 
-    @property
-    def user(self):
-        """Idiomatic facade: client.user.list() / client.user.load({"id": ...})."""
-        from entity.user_entity import UserEntity
-        cached = getattr(self, "_user", None)
-        if cached is None:
-            cached = UserEntity(self, None)
-            self._user = cached
-        return cached
-
-    def User(self, data=None):
-        # Deprecated: use client.user instead.
+    def User(self, data=None) -> "UserEntity":
+        """Entity factory: client.User().list({}) / client.User().load({"id": ...})."""
         from entity.user_entity import UserEntity
         return UserEntity(self, data)
 
 
 
     @classmethod
-    def test(cls, testopts=None, sdkopts=None):
+    def test(cls, testopts=None, sdkopts=None) -> "MockApiServiceSDK":
         if sdkopts is None:
             sdkopts = {}
         sdkopts = vs.clone(sdkopts)
@@ -290,3 +260,11 @@ class MockApiServiceSDK:
         sdk.mode = "test"
 
         return sdk
+
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity.health_entity import HealthEntity
+    from entity.post_entity import PostEntity
+    from entity.user_entity import UserEntity

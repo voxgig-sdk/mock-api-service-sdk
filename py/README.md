@@ -33,10 +33,12 @@ client = MockApiServiceSDK()
 
 ### 3. Load a health
 
+`load()` returns the bare record (a `dict`) and raises on error.
+
 ```python
 try:
-    result = client.health.load({"id": "example_id"})
-    print(result)
+    health = client.Health().load({"id": "example_id"})
+    print(health)
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -84,8 +86,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = MockApiServiceSDK.test()
 
-result = client.health.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+health = client.Health().load({"id": "test01"})
+# health contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -163,7 +166,7 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | `direct` | `(fetchargs) -> dict` | Build and send an HTTP request. Returns a result dict (branch on `ok`). |
 | `Health` | `(data) -> HealthEntity` | Create a Health entity instance. |
 | `Post` | `(data) -> PostEntity` | Create a Post entity instance. |
-| `User` | `(data) -> UserEntity` | Create a User entity instance. |
+| `User` | `(data) -> UserEntity` | Create an User entity instance. |
 
 ### Entity interface
 
@@ -249,7 +252,7 @@ API path: `/users`
 
 ### Health
 
-Create an instance: `const health = client.health`
+Create an instance: `health = client.Health()`
 
 #### Operations
 
@@ -266,14 +269,14 @@ Create an instance: `const health = client.health`
 
 #### Example: Load
 
-```ts
-const health = await client.health.load({ id: 'health_id' })
+```python
+health = client.Health().load({"id": "health_id"})
 ```
 
 
 ### Post
 
-Create an instance: `const post = client.post`
+Create an instance: `post = client.Post()`
 
 #### Operations
 
@@ -294,20 +297,20 @@ Create an instance: `const post = client.post`
 
 #### Example: Load
 
-```ts
-const post = await client.post.load({ id: 'post_id' })
+```python
+post = client.Post().load({"id": "post_id"})
 ```
 
 #### Example: List
 
-```ts
-const posts = await client.post.list()
+```python
+posts = client.Post().list({})
 ```
 
 
 ### User
 
-Create an instance: `const user = client.user`
+Create an instance: `user = client.User()`
 
 #### Operations
 
@@ -331,20 +334,20 @@ Create an instance: `const user = client.user`
 
 #### Example: Load
 
-```ts
-const user = await client.user.load({ id: 'user_id' })
+```python
+user = client.User().load({"id": "user_id"})
 ```
 
 #### Example: List
 
-```ts
-const users = await client.user.list()
+```python
+users = client.User().list({})
 ```
 
 #### Example: Create
 
-```ts
-const user = await client.user.create({
+```python
+user = client.User().create({
 })
 ```
 
@@ -419,7 +422,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-health = client.health
+health = client.Health()
 health.load({"id": "example_id"})
 
 # health.data_get() now returns the loaded health data

@@ -32,8 +32,9 @@ client = MockApiServiceSDK.new
 
 ```ruby
 begin
-  result = client.health.load({ "id" => "example_id" })
-  puts result
+  # load returns the bare Health record (raises on error).
+  health = client.Health.load({ "id" => "example_id" })
+  puts health
 rescue => err
   warn "load failed: #{err}"
 end
@@ -80,13 +81,17 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = MockApiServiceSDK.test
+client = MockApiServiceSDK.test({
+  "entity" => { "health" => { "test01" => { "id" => "test01" } } },
+})
 
-result = client.health.load({ "id" => "test01" })
-# result contains mock response data
+# load returns the bare mock record (raises on error).
+health = client.Health.load({ "id" => "test01" })
+puts health
 ```
 
 ### Use a custom fetch function
@@ -164,7 +169,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `direct` | `(fetchargs) -> Hash` | Build and send an HTTP request. Returns a result hash (`result["ok"]`); does not raise. |
 | `Health` | `(data) -> HealthEntity` | Create a Health entity instance. |
 | `Post` | `(data) -> PostEntity` | Create a Post entity instance. |
-| `User` | `(data) -> UserEntity` | Create a User entity instance. |
+| `User` | `(data) -> UserEntity` | Create an User entity instance. |
 
 ### Entity interface
 
@@ -249,7 +254,7 @@ API path: `/users`
 
 ### Health
 
-Create an instance: `const health = client.health`
+Create an instance: `health = client.Health`
 
 #### Operations
 
@@ -266,14 +271,15 @@ Create an instance: `const health = client.health`
 
 #### Example: Load
 
-```ts
-const health = await client.health.load({ id: 'health_id' })
+```ruby
+# load returns the bare Health record (raises on error).
+health = client.Health.load({ "id" => "health_id" })
 ```
 
 
 ### Post
 
-Create an instance: `const post = client.post`
+Create an instance: `post = client.Post`
 
 #### Operations
 
@@ -294,20 +300,22 @@ Create an instance: `const post = client.post`
 
 #### Example: Load
 
-```ts
-const post = await client.post.load({ id: 'post_id' })
+```ruby
+# load returns the bare Post record (raises on error).
+post = client.Post.load({ "id" => "post_id" })
 ```
 
 #### Example: List
 
-```ts
-const posts = await client.post.list()
+```ruby
+# list returns an Array of Post records (raises on error).
+posts = client.Post.list
 ```
 
 
 ### User
 
-Create an instance: `const user = client.user`
+Create an instance: `user = client.User`
 
 #### Operations
 
@@ -331,20 +339,22 @@ Create an instance: `const user = client.user`
 
 #### Example: Load
 
-```ts
-const user = await client.user.load({ id: 'user_id' })
+```ruby
+# load returns the bare User record (raises on error).
+user = client.User.load({ "id" => "user_id" })
 ```
 
 #### Example: List
 
-```ts
-const users = await client.user.list()
+```ruby
+# list returns an Array of User records (raises on error).
+users = client.User.list
 ```
 
 #### Example: Create
 
-```ts
-const user = await client.user.create({
+```ruby
+user = client.User.create({
 })
 ```
 
@@ -420,7 +430,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-health = client.health
+health = client.Health
 health.load({ "id" => "example_id" })
 
 # health.data_get now returns the loaded health data

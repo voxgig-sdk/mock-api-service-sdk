@@ -26,9 +26,9 @@ import { MockApiServiceSDK } from '@voxgig-sdk/mock-api-service'
 
 const client = new MockApiServiceSDK()
 
-// Load health data
-const health = await client.health.load({})
-console.log(health.data)
+// Load health data (returns a Health)
+const health = await client.Health().load()
+console.log(health)
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -86,8 +86,8 @@ from mockapiservice_sdk import MockApiServiceSDK
 client = MockApiServiceSDK()
 
 
-# Load a specific health
-health = client.health.load({"id": "example_id"})
+# Load a specific health (returns the record, raises on error)
+health = client.Health().load({"id": "example_id"})
 print(health)
 ```
 
@@ -100,8 +100,8 @@ require_once 'mockapiservice_sdk.php';
 $client = new MockApiServiceSDK();
 
 
-// Load a specific health
-$health = $client->health()->load(["id" => "example_id"]);
+// Load a specific health (returns the bare record; throws on error)
+$health = $client->Health()->load(["id" => "example_id"]);
 print_r($health);
 ```
 
@@ -125,8 +125,8 @@ require_relative "MockApiService_sdk"
 client = MockApiServiceSDK.new
 
 
-# Load a specific health
-health = client.health.load({ "id" => "example_id" })
+# Load a specific health (returns the bare record; raises on error)
+health = client.Health.load({ "id" => "example_id" })
 puts health
 ```
 
@@ -139,7 +139,7 @@ local client = sdk.new()
 
 
 -- Load a specific health
-local health, err = client:health():load({ id = "example_id" })
+local health, err = client:Health():load({ id = "example_id" })
 print(health)
 ```
 
@@ -152,22 +152,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = MockApiServiceSDK.test()
-const result = await client.health.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const health = await client.Health().load({ id: 'test01' })
+// health is a bare Health populated with mock data
+console.log(health)
 ```
 
 ### Python
 
 ```python
 client = MockApiServiceSDK.test()
-result = client.health.load({"id": "test01"})
+health = client.Health().load({"id": "test01"})
+print(health)
 ```
 
 ### PHP
 
 ```php
-$client = MockApiServiceSDK::test();
-$result = $client->health()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = MockApiServiceSDK::test([
+    "entity" => ["health" => ["test01" => ["id" => "test01"]]],
+]);
+$health = $client->Health()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -182,15 +187,18 @@ result, err := client.Health(nil).Load(
 ### Ruby
 
 ```ruby
-client = MockApiServiceSDK.test
-result = client.health.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = MockApiServiceSDK.test({
+  "entity" => { "health" => { "test01" => { "id" => "test01" } } },
+})
+health = client.Health.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:health():load({ id = "test01" })
+local result, err = client:Health():load({ id = "test01" })
 ```
 
 ## How it works
@@ -238,6 +246,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

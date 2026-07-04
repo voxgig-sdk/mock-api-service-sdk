@@ -4,86 +4,79 @@
 # params (op.<name>.points[].args.params[]). Field/param types come from the
 # canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 # @voxgig/apidef VALID_CANON). Do not edit by hand.
+#
+# These are TypedDicts, not dataclasses: the SDK ops return/accept plain dicts
+# at runtime, and a TypedDict IS a dict shape, so the types match the runtime.
+# Optional (req:false) keys are modelled as TypedDict key-optionality
+# (total=False), split into a required base + total=False subclass when a type
+# has both required and optional keys.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Optional, Any
+from typing import TypedDict, Any
 
 
-@dataclass
-class Health:
-    message: Optional[str] = None
-    status: Optional[str] = None
+class Health(TypedDict, total=False):
+    message: str
+    status: str
 
 
-@dataclass
-class HealthLoadMatch:
-    message: Optional[str] = None
-    status: Optional[str] = None
+class HealthLoadMatch(TypedDict, total=False):
+    message: str
+    status: str
 
 
-@dataclass
-class Post:
-    body: Optional[str] = None
-    created_at: Optional[str] = None
-    id: Optional[str] = None
-    title: Optional[str] = None
-    user_id: Optional[str] = None
+class Post(TypedDict, total=False):
+    body: str
+    created_at: str
+    id: str
+    title: str
+    user_id: str
 
 
-@dataclass
-class PostLoadMatch:
+class PostLoadMatch(TypedDict):
     id: str
 
 
-@dataclass
-class PostListMatch:
-    body: Optional[str] = None
-    created_at: Optional[str] = None
-    id: Optional[str] = None
-    title: Optional[str] = None
-    user_id: Optional[str] = None
+class PostListMatch(TypedDict, total=False):
+    body: str
+    created_at: str
+    id: str
+    title: str
+    user_id: str
 
 
-@dataclass
-class User:
-    created_at: Optional[str] = None
-    email: Optional[str] = None
-    id: Optional[str] = None
-    name: Optional[str] = None
-    username: Optional[str] = None
+class User(TypedDict, total=False):
+    created_at: str
+    email: str
+    id: str
+    name: str
+    username: str
 
 
-@dataclass
-class UserLoadMatch:
+class UserLoadMatch(TypedDict):
     id: str
 
 
-@dataclass
-class UserListMatch:
-    created_at: Optional[str] = None
-    email: Optional[str] = None
-    id: Optional[str] = None
-    name: Optional[str] = None
-    username: Optional[str] = None
+class UserListMatch(TypedDict, total=False):
+    created_at: str
+    email: str
+    id: str
+    name: str
+    username: str
 
 
-@dataclass
-class UserCreateData:
-    created_at: Optional[str] = None
-    email: Optional[str] = None
-    id: Optional[str] = None
-    name: Optional[str] = None
-    username: Optional[str] = None
+class UserCreateData(TypedDict, total=False):
+    created_at: str
+    email: str
+    id: str
+    name: str
+    username: str
 
 
-@dataclass
-class UserUpdateData:
+class UserUpdateData(TypedDict):
     id: str
 
 
-@dataclass
-class UserRemoveMatch:
+class UserRemoveMatch(TypedDict):
     id: str
-

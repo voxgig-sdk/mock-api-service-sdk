@@ -233,10 +233,10 @@ class MockApiServiceSDK
 
     private $_health = null;
 
-    // Idiomatic facade: $client->health()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Health() (PHP method
-    // names are case-insensitive).
-    public function health($data = null)
+    // Canonical facade: $client->Health()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->health()
+    // resolves here too.
+    public function Health($data = null)
     {
         require_once __DIR__ . '/entity/health_entity.php';
         if ($data === null) {
@@ -251,10 +251,10 @@ class MockApiServiceSDK
 
     private $_post = null;
 
-    // Idiomatic facade: $client->post()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Post() (PHP method
-    // names are case-insensitive).
-    public function post($data = null)
+    // Canonical facade: $client->Post()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->post()
+    // resolves here too.
+    public function Post($data = null)
     {
         require_once __DIR__ . '/entity/post_entity.php';
         if ($data === null) {
@@ -269,10 +269,10 @@ class MockApiServiceSDK
 
     private $_user = null;
 
-    // Idiomatic facade: $client->user()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias User() (PHP method
-    // names are case-insensitive).
-    public function user($data = null)
+    // Canonical facade: $client->User()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->user()
+    // resolves here too.
+    public function User($data = null)
     {
         require_once __DIR__ . '/entity/user_entity.php';
         if ($data === null) {
