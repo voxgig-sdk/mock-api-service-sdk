@@ -4,6 +4,11 @@
 
 The TypeScript SDK for the MockApiService API — a type-safe, entity-oriented client with full async/await support.
 
+The API is exposed as capitalised, semantic **Entities** — e.g.
+`client.Health()` — each with a small set of operations (`list`, `load`, `create`, `update`, `remove`)
+instead of raw URL paths and query parameters. This keeps the surface
+predictable and low-friction for both humans and AI agents.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -34,10 +39,39 @@ const client = new MockApiServiceSDK()
 
 ```ts
 try {
-  const health = await client.Health().load({ id: 'example_id' })
+  const health = await client.Health().load()
   console.log(health)
 } catch (err) {
   console.error('load failed:', err)
+}
+```
+
+
+## Error handling
+
+Entity operations reject on failure, so wrap them in `try` / `catch`:
+
+```ts
+try {
+  const health = await client.Health().load()
+  console.log(health)
+} catch (err) {
+  console.error('load failed:', err)
+}
+```
+
+The low-level `direct()` method does **not** throw — it returns the
+value or an `Error`, so check the result before using it:
+
+```ts
+const result = await client.direct({
+  path: '/api/resource/{id}',
+  method: 'GET',
+  params: { id: 'example_id' },
+})
+
+if (result instanceof Error) {
+  throw result
 }
 ```
 
@@ -86,7 +120,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = MockApiServiceSDK.test()
 
-const health = await client.Health().load({ id: 'test01' })
+const health = await client.Health().load()
 // health is a bare entity populated with mock response data
 console.log(health)
 ```
@@ -105,12 +139,12 @@ Entity instances remember their last match and data:
 ```ts
 const entity = client.Health()
 
-// First call sets internal match
-await entity.load({ id: 'example' })
+// First call runs the operation and stores its result
+await entity.load()
 
-// Subsequent calls reuse the stored match
+// Subsequent calls reuse the stored state
 const data = entity.data()
-console.log(data.id) // 'example'
+console.log(data)
 ```
 
 ### Add custom middleware
@@ -205,8 +239,8 @@ All entities share the same interface.
 | `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity. |
 | `update` | `update(reqdata?, ctrl?): Promise<Entity>` | Update an existing entity. |
 | `remove` | `remove(reqmatch?, ctrl?): Promise<void>` | Remove an entity. |
-| `data` | `data(data?): any` | Get or set entity data. |
-| `match` | `match(match?): any` | Get or set entity match criteria. |
+| `data` | `data(data?: Partial<Entity>): Entity` | Get or set entity data. |
+| `match` | `match(match?: Partial<Entity>): Partial<Entity>` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
 | `client` | `client(): MockApiServiceSDK` | Return the parent SDK client. |
 | `entopts` | `entopts(): object` | Return a copy of the entity options. |
@@ -313,13 +347,13 @@ Create an instance: `const health = client.Health()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `message` | ``$STRING`` |  |
-| `status` | ``$STRING`` |  |
+| `message` | `string` |  |
+| `status` | `string` |  |
 
 #### Example: Load
 
 ```ts
-const health = await client.Health().load({ id: 'health_id' })
+const health = await client.Health().load()
 ```
 
 
@@ -338,11 +372,11 @@ Create an instance: `const post = client.Post()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `body` | ``$STRING`` |  |
-| `created_at` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
-| `user_id` | ``$STRING`` |  |
+| `body` | `string` |  |
+| `created_at` | `string` |  |
+| `id` | `string` |  |
+| `title` | `string` |  |
+| `user_id` | `string` |  |
 
 #### Example: Load
 
@@ -375,11 +409,11 @@ Create an instance: `const user = client.User()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `email` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `username` | ``$STRING`` |  |
+| `created_at` | `string` |  |
+| `email` | `string` |  |
+| `id` | `string` |  |
+| `name` | `string` |  |
+| `username` | `string` |  |
 
 #### Example: Load
 
@@ -401,12 +435,16 @@ const user = await client.User().create({
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -423,11 +461,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller.
-
-An unexpected exception triggers the `PreUnexpected` hook before
-propagating.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -469,10 +505,10 @@ calls on the same instance can rely on this state.
 
 ```ts
 const health = client.Health()
-await health.load({ id: "example_id" })
+await health.load()
 
-// health.data() now returns the loaded health data
-// health.match() returns { id: "example_id" }
+// health.data() now returns the health data from the last `load`
+// health.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

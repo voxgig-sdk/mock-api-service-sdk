@@ -16,7 +16,6 @@ go build -o mock-api-service-cli ./...
 
 ```sh
 # One-shot: arguments form a single AQL expression
-./mock-api-service-cli list health
 ./mock-api-service-cli load 1 health
 ./mock-api-service-cli load '{id:1}' health
 

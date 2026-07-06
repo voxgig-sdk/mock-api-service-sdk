@@ -4,6 +4,11 @@
 
 The Python SDK for the MockApiService API — an entity-oriented client following Pythonic conventions.
 
+The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Health()` — each
+carrying a small, uniform set of operations (`list`, `load`, `create`, `update`, `remove`) instead of raw URL
+paths and query strings. You work with named resources and verbs, which
+keeps the cognitive load low.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -37,10 +42,38 @@ client = MockApiServiceSDK()
 
 ```python
 try:
-    health = client.Health().load({"id": "example_id"})
+    health = client.Health().load()
     print(health)
 except Exception as err:
     print(f"load failed: {err}")
+```
+
+
+## Error handling
+
+Entity operations raise on failure, so wrap them in `try` / `except`:
+
+```python
+try:
+    health = client.Health().load()
+    print(health)
+except Exception as err:
+    print(f"load failed: {err}")
+```
+
+`direct()` does **not** raise — it returns the result envelope. Branch
+on `ok`; on failure `status` holds the HTTP status (for error responses)
+and `err` holds a transport error, so read both defensively:
+
+```python
+result = client.direct({
+    "path": "/api/resource/{id}",
+    "method": "GET",
+    "params": {"id": "example_id"},
+})
+
+if not result["ok"]:
+    print("request failed:", result.get("status"), result.get("err"))
 ```
 
 
@@ -61,7 +94,10 @@ if result["ok"]:
     print(result["status"])  # 200
     print(result["data"])    # response body
 else:
-    print(result["err"])     # error value
+    # A non-2xx response carries status + data (the error body); a
+    # transport-level failure carries err instead. Only one is present, so
+    # read both with .get() rather than indexing a key that may be absent.
+    print(result.get("status"), result.get("err"))
 ```
 
 ### Prepare a request without sending it
@@ -87,7 +123,7 @@ Create a mock client for unit testing — no server required:
 client = MockApiServiceSDK.test()
 
 # Entity ops return the bare record and raise on error.
-health = client.Health().load({"id": "test01"})
+health = client.Health().load()
 # health contains the mock response record
 ```
 
@@ -264,13 +300,13 @@ Create an instance: `health = client.Health()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `message` | ``$STRING`` |  |
-| `status` | ``$STRING`` |  |
+| `message` | `str` |  |
+| `status` | `str` |  |
 
 #### Example: Load
 
 ```python
-health = client.Health().load({"id": "health_id"})
+health = client.Health().load()
 ```
 
 
@@ -282,18 +318,18 @@ Create an instance: `post = client.Post()`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `body` | ``$STRING`` |  |
-| `created_at` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
-| `user_id` | ``$STRING`` |  |
+| `body` | `str` |  |
+| `created_at` | `str` |  |
+| `id` | `str` |  |
+| `title` | `str` |  |
+| `user_id` | `str` |  |
 
 #### Example: Load
 
@@ -304,7 +340,7 @@ post = client.Post().load({"id": "post_id"})
 #### Example: List
 
 ```python
-posts = client.Post().list({})
+posts = client.Post().list()
 ```
 
 
@@ -317,7 +353,7 @@ Create an instance: `user = client.User()`
 | Method | Description |
 | --- | --- |
 | `create(data)` | Create a new entity with the given data. |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 | `remove(match)` | Remove the matching entity. |
 | `update(data)` | Update an existing entity. |
@@ -326,11 +362,11 @@ Create an instance: `user = client.User()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `email` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `username` | ``$STRING`` |  |
+| `created_at` | `str` |  |
+| `email` | `str` |  |
+| `id` | `str` |  |
+| `name` | `str` |  |
+| `username` | `str` |  |
 
 #### Example: Load
 
@@ -341,7 +377,7 @@ user = client.User().load({"id": "user_id"})
 #### Example: List
 
 ```python
-users = client.User().list({})
+users = client.User().list()
 ```
 
 #### Example: Create
@@ -352,12 +388,16 @@ user = client.User().create({
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -374,8 +414,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as the second element in the return tuple.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -423,9 +464,9 @@ stores the returned data and match criteria internally.
 
 ```python
 health = client.Health()
-health.load({"id": "example_id"})
+health.load()
 
-# health.data_get() now returns the loaded health data
+# health.data_get() now returns the health data from the last load
 # health.match_get() returns the last match criteria
 ```
 

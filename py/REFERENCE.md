@@ -8,7 +8,7 @@ Complete API reference for the MockApiService Python SDK.
 ### Constructor
 
 ```python
-from mock-api-service_sdk import MockApiServiceSDK
+from mockapiservice_sdk import MockApiServiceSDK
 
 client = MockApiServiceSDK(options)
 ```
@@ -95,8 +95,8 @@ health = client.Health()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `message` | ``$STRING`` | No |  |
-| `status` | ``$STRING`` | No |  |
+| `message` | `str` | No |  |
+| `status` | `str` | No |  |
 
 ### Operations
 
@@ -105,7 +105,7 @@ health = client.Health()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.Health().load({"id": "health_id"})
+result = client.Health().load()
 ```
 
 ### Common Methods
@@ -147,20 +147,20 @@ post = client.Post()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `body` | ``$STRING`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `user_id` | ``$STRING`` | No |  |
+| `body` | `str` | No |  |
+| `created_at` | `str` | No |  |
+| `id` | `str` | No |  |
+| `title` | `str` | No |  |
+| `user_id` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Post().list({})
+results = client.Post().list()
 for post in results:
     print(post)
 ```
@@ -212,11 +212,11 @@ user = client.User()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | ``$STRING`` | No |  |
-| `email` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `username` | ``$STRING`` | No |  |
+| `created_at` | `str` | No |  |
+| `email` | `str` | No |  |
+| `id` | `str` | No |  |
+| `name` | `str` | No |  |
+| `username` | `str` | No |  |
 
 ### Field Usage by Operation
 
@@ -239,12 +239,12 @@ result = client.User().create({
 })
 ```
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.User().list({})
+results = client.User().list()
 for user in results:
     print(user)
 ```

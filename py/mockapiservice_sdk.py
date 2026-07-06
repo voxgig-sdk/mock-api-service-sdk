@@ -221,19 +221,19 @@ class MockApiServiceSDK:
 
 
     def Health(self, data=None) -> "HealthEntity":
-        """Entity factory: client.Health().list({}) / client.Health().load({"id": ...})."""
+        """Entity factory: client.Health().list() / client.Health().load({"id": ...})."""
         from entity.health_entity import HealthEntity
         return HealthEntity(self, data)
 
 
     def Post(self, data=None) -> "PostEntity":
-        """Entity factory: client.Post().list({}) / client.Post().load({"id": ...})."""
+        """Entity factory: client.Post().list() / client.Post().load({"id": ...})."""
         from entity.post_entity import PostEntity
         return PostEntity(self, data)
 
 
     def User(self, data=None) -> "UserEntity":
-        """Entity factory: client.User().list({}) / client.User().load({"id": ...})."""
+        """Entity factory: client.User().list() / client.User().load({"id": ...})."""
         from entity.user_entity import UserEntity
         return UserEntity(self, data)
 

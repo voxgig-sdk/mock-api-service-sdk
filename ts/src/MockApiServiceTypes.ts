@@ -10,7 +10,10 @@ export interface Health {
   status?: string
 }
 
-export type HealthLoadMatch = Partial<Health>
+export interface HealthLoadMatch {
+  message?: string
+  status?: string
+}
 
 export interface Post {
   body?: string
@@ -24,7 +27,13 @@ export interface PostLoadMatch {
   id: string
 }
 
-export type PostListMatch = Partial<Post>
+export interface PostListMatch {
+  body?: string
+  created_at?: string
+  id?: string
+  title?: string
+  user_id?: string
+}
 
 export interface User {
   created_at?: string
@@ -38,9 +47,21 @@ export interface UserLoadMatch {
   id: string
 }
 
-export type UserListMatch = Partial<User>
+export interface UserListMatch {
+  created_at?: string
+  email?: string
+  id?: string
+  name?: string
+  username?: string
+}
 
-export type UserCreateData = Partial<User>
+export interface UserCreateData {
+  created_at?: string
+  email?: string
+  id?: string
+  name?: string
+  username?: string
+}
 
 export interface UserUpdateData {
   id: string

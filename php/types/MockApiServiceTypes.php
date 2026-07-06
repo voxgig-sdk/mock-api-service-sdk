@@ -19,7 +19,7 @@ class Health
     public ?string $status = null;
 }
 
-/** Match filter for Health#load (any subset of Health fields). */
+/** Request payload for Health#load. */
 class HealthLoadMatch
 {
     public ?string $message = null;
@@ -42,7 +42,7 @@ class PostLoadMatch
     public string $id;
 }
 
-/** Match filter for Post#list (any subset of Post fields). */
+/** Request payload for Post#list. */
 class PostListMatch
 {
     public ?string $body = null;
@@ -68,7 +68,7 @@ class UserLoadMatch
     public string $id;
 }
 
-/** Match filter for User#list (any subset of User fields). */
+/** Request payload for User#list. */
 class UserListMatch
 {
     public ?string $created_at = null;
@@ -78,7 +78,7 @@ class UserListMatch
     public ?string $username = null;
 }
 
-/** Match filter for User#create (any subset of User fields). */
+/** Request payload for User#create. */
 class UserCreateData
 {
     public ?string $created_at = null;

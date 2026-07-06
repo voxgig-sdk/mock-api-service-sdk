@@ -21,7 +21,7 @@ Health = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Health#load (any subset of Health fields).
+# Request payload for Health#load.
 #
 # @!attribute [rw] message
 #   @return [String, nil]
@@ -68,7 +68,7 @@ PostLoadMatch = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Post#list (any subset of Post fields).
+# Request payload for Post#list.
 #
 # @!attribute [rw] body
 #   @return [String, nil]
@@ -127,7 +127,7 @@ UserLoadMatch = Struct.new(
   keyword_init: true
 )
 
-# Match filter for User#list (any subset of User fields).
+# Request payload for User#list.
 #
 # @!attribute [rw] created_at
 #   @return [String, nil]
@@ -152,7 +152,7 @@ UserListMatch = Struct.new(
   keyword_init: true
 )
 
-# Match filter for User#create (any subset of User fields).
+# Request payload for User#create.
 #
 # @!attribute [rw] created_at
 #   @return [String, nil]

@@ -140,8 +140,8 @@ const health = client.Health()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `message` | ``$STRING`` | No |  |
-| `status` | ``$STRING`` | No |  |
+| `message` | `string` | No |  |
+| `status` | `string` | No |  |
 
 ### Operations
 
@@ -150,7 +150,7 @@ const health = client.Health()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Health().load({ id: 'health_id' })
+const result = await client.Health().load()
 ```
 
 ### Common Methods
@@ -191,11 +191,11 @@ const post = client.Post()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `body` | ``$STRING`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `user_id` | ``$STRING`` | No |  |
+| `body` | `string` | No |  |
+| `created_at` | `string` | No |  |
+| `id` | `string` | No |  |
+| `title` | `string` | No |  |
+| `user_id` | `string` | No |  |
 
 ### Operations
 
@@ -253,11 +253,11 @@ const user = client.User()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | ``$STRING`` | No |  |
-| `email` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `username` | ``$STRING`` | No |  |
+| `created_at` | `string` | No |  |
+| `email` | `string` | No |  |
+| `id` | `string` | No |  |
+| `name` | `string` | No |  |
+| `username` | `string` | No |  |
 
 ### Field Usage by Operation
 

@@ -4,6 +4,8 @@
 
 The Ruby SDK for the MockApiService API — an entity-oriented client using idiomatic Ruby conventions.
 
+The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Health` — with named operations (`list`/`load`/`create`/`update`/`remove`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -33,11 +35,38 @@ client = MockApiServiceSDK.new
 ```ruby
 begin
   # load returns the bare Health record (raises on error).
-  health = client.Health.load({ "id" => "example_id" })
+  health = client.Health.load()
   puts health
 rescue => err
   warn "load failed: #{err}"
 end
+```
+
+
+## Error handling
+
+Entity operations raise on failure, so rescue them:
+
+```ruby
+begin
+  health = client.Health.load()
+rescue => err
+  warn "load failed: #{err}"
+end
+```
+
+`direct` does **not** raise — it returns the result hash. Branch on
+`ok`; on failure `status` holds the HTTP status (for error responses) and
+`err` holds a transport error, so read both defensively:
+
+```ruby
+result = client.direct({
+  "path" => "/api/resource/{id}",
+  "method" => "GET",
+  "params" => { "id" => "example_id" },
+})
+
+warn "request failed: #{result["err"] || "HTTP #{result["status"]}"}" unless result["ok"]
 ```
 
 
@@ -58,7 +87,9 @@ if result["ok"]
   puts result["status"]  # 200
   puts result["data"]    # response body
 else
-  warn result["err"]
+  # On an HTTP error status there is no err (only a transport failure sets
+  # it), so fall back to the status code.
+  warn(result["err"] || "HTTP #{result["status"]}")
 end
 ```
 
@@ -81,16 +112,13 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required. Seed fixture
-data via the `entity` option so offline calls resolve without a live server:
+Create a mock client for unit testing — no server required:
 
 ```ruby
-client = MockApiServiceSDK.test({
-  "entity" => { "health" => { "test01" => { "id" => "test01" } } },
-})
+client = MockApiServiceSDK.test
 
-# load returns the bare mock record (raises on error).
-health = client.Health.load({ "id" => "test01" })
+# Entity ops return the bare mock record (raises on error).
+health = client.Health.load()
 puts health
 ```
 
@@ -178,7 +206,7 @@ All entities share the same interface.
 | Method | Signature | Description |
 | --- | --- | --- |
 | `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
-| `list` | `(reqmatch, ctrl) -> Array` | List entities matching the criteria. Raises on error. |
+| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all). Raises on error. |
 | `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
 | `update` | `(reqdata, ctrl) -> any` | Update an existing entity. Raises on error. |
 | `remove` | `(reqmatch, ctrl) -> any` | Remove an entity. Raises on error. |
@@ -266,14 +294,14 @@ Create an instance: `health = client.Health`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `message` | ``$STRING`` |  |
-| `status` | ``$STRING`` |  |
+| `message` | `String` |  |
+| `status` | `String` |  |
 
 #### Example: Load
 
 ```ruby
 # load returns the bare Health record (raises on error).
-health = client.Health.load({ "id" => "health_id" })
+health = client.Health.load()
 ```
 
 
@@ -292,11 +320,11 @@ Create an instance: `post = client.Post`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `body` | ``$STRING`` |  |
-| `created_at` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
-| `user_id` | ``$STRING`` |  |
+| `body` | `String` |  |
+| `created_at` | `String` |  |
+| `id` | `String` |  |
+| `title` | `String` |  |
+| `user_id` | `String` |  |
 
 #### Example: Load
 
@@ -331,11 +359,11 @@ Create an instance: `user = client.User`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `email` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `username` | ``$STRING`` |  |
+| `created_at` | `String` |  |
+| `email` | `String` |  |
+| `id` | `String` |  |
+| `name` | `String` |  |
+| `username` | `String` |  |
 
 #### Example: Load
 
@@ -359,12 +387,16 @@ user = client.User.create({
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -381,8 +413,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as a second return value.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -431,9 +464,9 @@ stores the returned data and match criteria internally.
 
 ```ruby
 health = client.Health
-health.load({ "id" => "example_id" })
+health.load()
 
-# health.data_get now returns the loaded health data
+# health.data_get now returns the health data from the last load
 # health.match_get returns the last match criteria
 ```
 

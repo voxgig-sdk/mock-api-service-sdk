@@ -8,7 +8,7 @@ Complete API reference for the MockApiService Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'mock-api-service_sdk'
+require_relative 'MockApiService_sdk'
 
 client = MockApiServiceSDK.new(options)
 ```
@@ -101,8 +101,8 @@ health = client.Health
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `message` | ``$STRING`` | No |  |
-| `status` | ``$STRING`` | No |  |
+| `message` | `String` | No |  |
+| `status` | `String` | No |  |
 
 ### Operations
 
@@ -111,7 +111,7 @@ health = client.Health
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Health.load({ "id" => "health_id" })
+result = client.Health.load()
 ```
 
 ### Common Methods
@@ -154,20 +154,20 @@ post = client.Post
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `body` | ``$STRING`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `user_id` | ``$STRING`` | No |  |
+| `body` | `String` | No |  |
+| `created_at` | `String` | No |  |
+| `id` | `String` | No |  |
+| `title` | `String` | No |  |
+| `user_id` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Post.list(nil)
+results = client.Post.list
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -218,11 +218,11 @@ user = client.User
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | ``$STRING`` | No |  |
-| `email` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `username` | ``$STRING`` | No |  |
+| `created_at` | `String` | No |  |
+| `email` | `String` | No |  |
+| `id` | `String` | No |  |
+| `name` | `String` | No |  |
+| `username` | `String` | No |  |
 
 ### Field Usage by Operation
 
@@ -245,12 +245,12 @@ result = client.User.create({
 })
 ```
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.User.list(nil)
+results = client.User.list
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`

@@ -105,8 +105,8 @@ health := client.Health(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `message` | ``$STRING`` | No |  |
-| `status` | ``$STRING`` | No |  |
+| `message` | `string` | No |  |
+| `status` | `string` | No |  |
 
 ### Operations
 
@@ -115,7 +115,7 @@ health := client.Health(nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.Health(nil).Load(map[string]any{"id": "health_id"}, nil)
+result, err := client.Health(nil).Load(nil, nil)
 ```
 
 ### Common Methods
@@ -152,11 +152,11 @@ post := client.Post(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `body` | ``$STRING`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `user_id` | ``$STRING`` | No |  |
+| `body` | `string` | No |  |
+| `created_at` | `string` | No |  |
+| `id` | `string` | No |  |
+| `title` | `string` | No |  |
+| `user_id` | `string` | No |  |
 
 ### Operations
 
@@ -210,11 +210,11 @@ user := client.User(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | ``$STRING`` | No |  |
-| `email` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `username` | ``$STRING`` | No |  |
+| `created_at` | `string` | No |  |
+| `email` | `string` | No |  |
+| `id` | `string` | No |  |
+| `name` | `string` | No |  |
+| `username` | `string` | No |  |
 
 ### Field Usage by Operation
 

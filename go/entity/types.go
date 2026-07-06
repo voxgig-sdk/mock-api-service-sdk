@@ -14,8 +14,7 @@ type Health struct {
 	Status *string `json:"status,omitempty"`
 }
 
-// HealthLoadMatch mirrors the health fields as an all-optional match
-// filter (Go analog of Partial<Health>).
+// HealthLoadMatch is the typed request payload for Health.LoadTyped.
 type HealthLoadMatch struct {
 	Message *string `json:"message,omitempty"`
 	Status *string `json:"status,omitempty"`
@@ -35,8 +34,7 @@ type PostLoadMatch struct {
 	Id string `json:"id"`
 }
 
-// PostListMatch mirrors the post fields as an all-optional match
-// filter (Go analog of Partial<Post>).
+// PostListMatch is the typed request payload for Post.ListTyped.
 type PostListMatch struct {
 	Body *string `json:"body,omitempty"`
 	CreatedAt *string `json:"created_at,omitempty"`
@@ -59,8 +57,7 @@ type UserLoadMatch struct {
 	Id string `json:"id"`
 }
 
-// UserListMatch mirrors the user fields as an all-optional match
-// filter (Go analog of Partial<User>).
+// UserListMatch is the typed request payload for User.ListTyped.
 type UserListMatch struct {
 	CreatedAt *string `json:"created_at,omitempty"`
 	Email *string `json:"email,omitempty"`
@@ -69,8 +66,7 @@ type UserListMatch struct {
 	Username *string `json:"username,omitempty"`
 }
 
-// UserCreateData mirrors the user fields as an all-optional match
-// filter (Go analog of Partial<User>).
+// UserCreateData is the typed request payload for User.CreateTyped.
 type UserCreateData struct {
 	CreatedAt *string `json:"created_at,omitempty"`
 	Email *string `json:"email,omitempty"`

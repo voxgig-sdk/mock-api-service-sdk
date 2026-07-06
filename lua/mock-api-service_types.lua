@@ -11,6 +11,8 @@
 ---@field status? string
 
 ---@class HealthLoadMatch
+---@field message? string
+---@field status? string
 
 ---@class Post
 ---@field body? string
@@ -23,6 +25,11 @@
 ---@field id string
 
 ---@class PostListMatch
+---@field body? string
+---@field created_at? string
+---@field id? string
+---@field title? string
+---@field user_id? string
 
 ---@class User
 ---@field created_at? string
@@ -35,8 +42,18 @@
 ---@field id string
 
 ---@class UserListMatch
+---@field created_at? string
+---@field email? string
+---@field id? string
+---@field name? string
+---@field username? string
 
 ---@class UserCreateData
+---@field created_at? string
+---@field email? string
+---@field id? string
+---@field name? string
+---@field username? string
 
 ---@class UserUpdateData
 ---@field id string

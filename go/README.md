@@ -4,6 +4,8 @@
 
 The Golang SDK for the MockApiService API — an entity-oriented client using standard Go conventions. No generics required; data flows as `map[string]any`.
 
+It exposes the API as capitalised, semantic **Entities** — e.g. `client.Health(nil)` — each with the same small set of operations (`List`, `Load`, `Create`, `Update`, `Remove`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -49,12 +51,41 @@ func main() {
     client := sdk.New()
 
     // Load a single health — the value is the loaded record.
-    health, err := client.Health(nil).Load(map[string]any{"id": "example_id"}, nil)
+    health, err := client.Health(nil).Load(nil, nil)
     if err != nil {
         panic(err)
     }
     fmt.Println(health)
 }
+```
+
+
+## Error handling
+
+Every entity operation returns `(value, error)`. Check `err` before
+using the value — there is no exception to catch:
+
+```go
+health, err := client.Health(nil).Load(nil, nil)
+if err != nil {
+    // handle err
+    return
+}
+_ = health
+```
+
+`Direct` follows the same `(value, error)` convention:
+
+```go
+result, err := client.Direct(map[string]any{
+    "path":   "/api/resource/{id}",
+    "method": "GET",
+    "params": map[string]any{"id": "example_id"},
+})
+if err != nil {
+    // handle err
+}
+_ = result
 ```
 
 
@@ -105,12 +136,12 @@ Create a mock client for unit testing — no server required:
 client := sdk.Test()
 
 health, err := client.Health(nil).Load(
-    map[string]any{"id": "test01"}, nil,
+    nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(health) // the loaded mock data
+fmt.Println(health) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -221,9 +252,9 @@ Check `err` first, then use the value directly (or the typed
 `...Typed` variants, which return the entity's model struct and a typed
 slice):
 
-    health, err := client.Health(nil).Load(map[string]any{"id": "example_id"}, nil)
+    health, err := client.Health(nil).Load(nil, nil)
     if err != nil { /* handle */ }
-    // health is the loaded record
+    // health is the returned record
 
 Only `Direct()` returns a response envelope — a `map[string]any` with
 `"ok"`, `"status"`, `"headers"`, and `"data"` keys.
@@ -288,13 +319,13 @@ Create an instance: `health := client.Health(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `message` | ``$STRING`` |  |
-| `status` | ``$STRING`` |  |
+| `message` | `string` |  |
+| `status` | `string` |  |
 
 #### Example: Load
 
 ```go
-health, err := client.Health(nil).Load(map[string]any{"id": "health_id"}, nil)
+health, err := client.Health(nil).Load(nil, nil)
 if err != nil {
     panic(err)
 }
@@ -317,11 +348,11 @@ Create an instance: `post := client.Post(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `body` | ``$STRING`` |  |
-| `created_at` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
-| `user_id` | ``$STRING`` |  |
+| `body` | `string` |  |
+| `created_at` | `string` |  |
+| `id` | `string` |  |
+| `title` | `string` |  |
+| `user_id` | `string` |  |
 
 #### Example: Load
 
@@ -362,11 +393,11 @@ Create an instance: `user := client.User(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `email` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `username` | ``$STRING`` |  |
+| `created_at` | `string` |  |
+| `email` | `string` |  |
+| `id` | `string` |  |
+| `name` | `string` |  |
+| `username` | `string` |  |
 
 #### Example: Load
 
@@ -396,12 +427,16 @@ result, err := client.User(nil).Create(map[string]any{
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -418,9 +453,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller. An unexpected panic triggers the
-`PreUnexpected` hook.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -466,9 +501,9 @@ stores the returned data and match criteria internally.
 
 ```go
 health := client.Health(nil)
-health.Load(map[string]any{"id": "example_id"}, nil)
+health.Load(nil, nil)
 
-// health.Data() now returns the loaded health data
+// health.Data() now returns the health data from the last load
 // health.Match() returns the last match criteria
 ```
 

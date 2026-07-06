@@ -4,6 +4,8 @@
 
 The Lua SDK for the MockApiService API — an entity-oriented client using Lua conventions.
 
+It exposes the API as capitalised, semantic **Entities** — e.g. `client:Health()` — each with the same small set of operations (`list`, `load`, `create`, `update`, `remove`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -34,9 +36,31 @@ local client = sdk.new()
 ### 3. Load a health
 
 ```lua
-local health, err = client:Health():load({ id = "example_id" })
+local health, err = client:Health():load()
 if err then error(err) end
 print(health)
+```
+
+
+## Error handling
+
+Entity operations return `(value, err)`. Check `err` before using
+the value:
+
+```lua
+local health, err = client:Health():load()
+if err then error(err) end
+```
+
+`direct` follows the same `(value, err)` convention:
+
+```lua
+local result, err = client:direct({
+  path = "/api/resource/{id}",
+  method = "GET",
+  params = { id = "example_id" },
+})
+if err then error(err) end
 ```
 
 
@@ -82,8 +106,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Health():load({ id = "test01" })
--- result is the loaded data; err is set on failure
+local result, err = client:Health():load()
+-- result is the returned data; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -195,7 +219,7 @@ data **directly** — there is no wrapper:
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local health, err = client:Health():load({ id = "example_id" })
+    local health, err = client:Health():load()
     if err then error(err) end
     -- health is the loaded record
 
@@ -262,13 +286,13 @@ Create an instance: `local health = client:Health(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `message` | ``$STRING`` |  |
-| `status` | ``$STRING`` |  |
+| `message` | `string` |  |
+| `status` | `string` |  |
 
 #### Example: Load
 
 ```lua
-local health, err = client:Health():load({ id = "health_id" })
+local health, err = client:Health():load()
 ```
 
 
@@ -287,11 +311,11 @@ Create an instance: `local post = client:Post(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `body` | ``$STRING`` |  |
-| `created_at` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
-| `user_id` | ``$STRING`` |  |
+| `body` | `string` |  |
+| `created_at` | `string` |  |
+| `id` | `string` |  |
+| `title` | `string` |  |
+| `user_id` | `string` |  |
 
 #### Example: Load
 
@@ -324,11 +348,11 @@ Create an instance: `local user = client:User(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `email` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `username` | ``$STRING`` |  |
+| `created_at` | `string` |  |
+| `email` | `string` |  |
+| `id` | `string` |  |
+| `name` | `string` |  |
+| `username` | `string` |  |
 
 #### Example: Load
 
@@ -350,12 +374,16 @@ local user, err = client:User():create({
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -372,8 +400,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as a second return value.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -422,9 +451,9 @@ stores the returned data and match criteria internally.
 
 ```lua
 local health = client:Health()
-health:load({ id = "example_id" })
+health:load()
 
--- health:data_get() now returns the loaded health data
+-- health:data_get() now returns the health data from the last load
 -- health:match_get() returns the last match criteria
 ```
 
