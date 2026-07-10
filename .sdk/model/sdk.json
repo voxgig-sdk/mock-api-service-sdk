@@ -6,9 +6,6 @@
     },
     "kit": {
       "config": {
-        "auth": {
-          "prefix": "Bearer"
-        },
         "docs_order": [
           "ts",
           "py",
@@ -732,14 +729,17 @@
           "url": "https://docs.dummyapi.online/"
         },
         "description": "The DummyAPI provides a free mock API for developers to simulate HTTP requests and responses in their applications. It allows users to quickly set up endpoints and test their applications without needing a live backend.",
+        "meta_source": "https://www.freepublicapis.com",
         "servers": [
           {
             "description": "Production server",
             "url": "https://dummyapi.online/api"
           }
         ],
+        "summary": "The DummyAPI provides a free mock API for developers to simulate HTTP requests and responses in their applications.",
         "title": "Mock API Service",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "website": "https://docs.dummyapi.online/"
       },
       "option": {},
       "target": {
@@ -792,6 +792,9 @@
           },
           "name": "go-cli",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },
@@ -842,6 +845,9 @@
           },
           "name": "go-mcp",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },

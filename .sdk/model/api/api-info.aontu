@@ -15,9 +15,9 @@ main: {
           url: "https://dummyapi.online/api"
         }
       ]
+      summary: "The DummyAPI provides a free mock API for developers to simulate HTTP requests and responses in their applications."
       title: "Mock API Service"
       version: "1.0.0"
+      website: "https://docs.dummyapi.online/"
     }
   }
-}
-
