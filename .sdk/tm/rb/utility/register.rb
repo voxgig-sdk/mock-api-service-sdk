@@ -24,6 +24,7 @@ require_relative 'prepare_method'
 require_relative 'prepare_params'
 require_relative 'prepare_path'
 require_relative 'prepare_query'
+require_relative 'graphql'
 require_relative 'result_basic'
 require_relative 'result_body'
 require_relative 'result_headers'
@@ -55,6 +56,8 @@ MockApiServiceUtility.registrar = ->(u) {
   u.prepare_params = MockApiServiceUtilities::PrepareParams
   u.prepare_path = MockApiServiceUtilities::PreparePath
   u.prepare_query = MockApiServiceUtilities::PrepareQuery
+  u.graphql_body = MockApiServiceUtilities::GraphqlBody
+  u.graphql_errors = MockApiServiceUtilities::GraphqlErrors
   u.result_basic = MockApiServiceUtilities::ResultBasic
   u.result_body = MockApiServiceUtilities::ResultBody
   u.result_headers = MockApiServiceUtilities::ResultHeaders

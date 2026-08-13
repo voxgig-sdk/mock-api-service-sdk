@@ -53,10 +53,10 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const health = await client.Health().load()
-  console.log(health)
+  const posts = await client.Post().list()
+  console.log(posts)
 } catch (err) {
-  console.error('load failed:', err)
+  console.error('list failed:', err)
 }
 ```
 
@@ -120,9 +120,10 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = MockApiServiceSDK.test()
 
-const health = await client.Health().load()
-// health is a bare entity populated with mock response data
-console.log(health)
+const post = await client.Post().list()
+// post is the entity, populated with mock response data
+// — call post.data() for the record itself
+console.log(post)
 ```
 
 You can also use the instance method:
@@ -137,14 +138,14 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Health()
+const entity = client.Post()
 
 // First call runs the operation and stores its result
-await entity.load()
+await entity.list()
 
 // Subsequent calls reuse the stored state
 const data = entity.data()
-console.log(data)
+console.log(data.id)
 ```
 
 ### Add custom middleware
@@ -305,10 +306,10 @@ API path: `/ping`
 | Field | Description |
 | --- | --- |
 | `body` |  |
-| `created_at` |  |
+| `createdAt` |  |
 | `id` |  |
 | `title` |  |
-| `user_id` |  |
+| `userId` |  |
 
 Operations: list, load.
 
@@ -318,7 +319,7 @@ API path: `/posts`
 
 | Field | Description |
 | --- | --- |
-| `created_at` |  |
+| `createdAt` |  |
 | `email` |  |
 | `id` |  |
 | `name` |  |
@@ -373,10 +374,10 @@ Create an instance: `const post = client.Post()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `body` | `string` |  |
-| `created_at` | `string` |  |
+| `createdAt` | `string` |  |
 | `id` | `string` |  |
 | `title` | `string` |  |
-| `user_id` | `string` |  |
+| `userId` | `string` |  |
 
 #### Example: Load
 
@@ -409,7 +410,7 @@ Create an instance: `const user = client.User()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | `string` |  |
+| `createdAt` | `string` |  |
 | `email` | `string` |  |
 | `id` | `string` |  |
 | `name` | `string` |  |
@@ -499,16 +500,16 @@ import { MockApiServiceSDK } from '@voxgig-sdk/mock-api-service'
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const health = client.Health()
-await health.load()
+const post = client.Post()
+await post.list()
 
-// health.data() now returns the health data from the last `load`
-// health.match() returns the last match criteria
+// post.data() now returns the post data from the last `list`
+// post.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

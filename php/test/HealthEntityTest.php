@@ -33,7 +33,7 @@ class HealthEntityTest extends TestCase
         // The basic flow consumes synthetic IDs from the fixture. In live mode
         // without an *_ENTID env override, those IDs hit the live API and 4xx.
         if (!empty($setup["synthetic_only"])) {
-            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set MOCKAPISERVICE_TEST_HEALTH_ENTID JSON to run live");
+            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set MOCK_API_SERVICE_TEST_HEALTH_ENTID JSON to run live");
             return;
         }
         $client = $setup["client"];
@@ -77,22 +77,22 @@ function health_basic_setup($extra)
     // Detect ENTID env override before envOverride consumes it. When live
     // mode is on without a real override, the basic test runs against synthetic
     // IDs from the fixture and 4xx's. Surface this so the test can skip.
-    $entid_env_raw = getenv("MOCKAPISERVICE_TEST_HEALTH_ENTID");
+    $entid_env_raw = getenv("MOCK_API_SERVICE_TEST_HEALTH_ENTID");
     $idmap_overridden = $entid_env_raw !== false && str_starts_with(trim($entid_env_raw), "{");
 
     $env = Runner::env_override([
-        "MOCKAPISERVICE_TEST_HEALTH_ENTID" => $idmap,
-        "MOCKAPISERVICE_TEST_LIVE" => "FALSE",
-        "MOCKAPISERVICE_TEST_EXPLAIN" => "FALSE",
+        "MOCK_API_SERVICE_TEST_HEALTH_ENTID" => $idmap,
+        "MOCK_API_SERVICE_TEST_LIVE" => "FALSE",
+        "MOCK_API_SERVICE_TEST_EXPLAIN" => "FALSE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
-        $env["MOCKAPISERVICE_TEST_HEALTH_ENTID"]);
+        $env["MOCK_API_SERVICE_TEST_HEALTH_ENTID"]);
     if ($idmap_resolved === null) {
         $idmap_resolved = Helpers::to_map($idmap);
     }
 
-    if ($env["MOCKAPISERVICE_TEST_LIVE"] === "TRUE") {
+    if ($env["MOCK_API_SERVICE_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
             ],
@@ -101,13 +101,13 @@ function health_basic_setup($extra)
         $client = new MockApiServiceSDK(Helpers::to_map($merged_opts));
     }
 
-    $live = $env["MOCKAPISERVICE_TEST_LIVE"] === "TRUE";
+    $live = $env["MOCK_API_SERVICE_TEST_LIVE"] === "TRUE";
     return [
         "client" => $client,
         "data" => $entity_data,
         "idmap" => $idmap_resolved,
         "env" => $env,
-        "explain" => $env["MOCKAPISERVICE_TEST_EXPLAIN"] === "TRUE",
+        "explain" => $env["MOCK_API_SERVICE_TEST_EXPLAIN"] === "TRUE",
         "live" => $live,
         "synthetic_only" => $live && !$idmap_overridden,
         "now" => (int)(microtime(true) * 1000),

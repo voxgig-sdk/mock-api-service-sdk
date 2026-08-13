@@ -35,7 +35,7 @@ $client = new MockApiServiceSDK();
 
 ```php
 try {
-    // load() returns the bare Health record (throws on error).
+    // load() returns the ENTITY — call data_get() for the Health record (throws on error).
     $health = $client->Health()->load();
     print_r($health);
 } catch (\Throwable $err) {
@@ -51,7 +51,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $health = $client->Health()->load();
+    $posts = $client->Post()->list();
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -118,14 +118,18 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```php
-$client = MockApiServiceSDK::test();
+$client = MockApiServiceSDK::test([
+    "entity" => ["post" => ["test01" => ["id" => "test01"]]],
+]);
 
-// Entity ops return the bare mock record (throws on error).
-$health = $client->Health()->load();
-print_r($health);
+// Entity ops return the ENTITY (throws on error);
+// call data_get() for the mock record.
+$post = $client->Post()->list();
+print_r($post);
 ```
 
 ### Use a custom fetch function
@@ -228,7 +232,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (an `array` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
 ops, a `list` for `list`) and throw on error. Wrap calls in
 `try`/`catch` to handle failures.
 
@@ -262,10 +266,10 @@ API path: `/ping`
 | Field | Description |
 | --- | --- |
 | `body` |  |
-| `created_at` |  |
+| `createdAt` |  |
 | `id` |  |
 | `title` |  |
-| `user_id` |  |
+| `userId` |  |
 
 Operations: List, Load.
 
@@ -275,7 +279,7 @@ API path: `/posts`
 
 | Field | Description |
 | --- | --- |
-| `created_at` |  |
+| `createdAt` |  |
 | `email` |  |
 | `id` |  |
 | `name` |  |
@@ -310,7 +314,7 @@ Create an instance: `$health = $client->Health();`
 #### Example: Load
 
 ```php
-// load() returns the bare Health record (throws on error).
+// load() returns the ENTITY — call data_get() for the Health record (throws on error).
 $health = $client->Health()->load();
 ```
 
@@ -331,15 +335,15 @@ Create an instance: `$post = $client->Post();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `body` | `string` |  |
-| `created_at` | `string` |  |
+| `createdAt` | `string` |  |
 | `id` | `string` |  |
 | `title` | `string` |  |
-| `user_id` | `string` |  |
+| `userId` | `string` |  |
 
 #### Example: Load
 
 ```php
-// load() returns the bare Post record (throws on error).
+// load() returns the ENTITY — call data_get() for the Post record (throws on error).
 $post = $client->Post()->load(["id" => "post_id"]);
 ```
 
@@ -369,7 +373,7 @@ Create an instance: `$user = $client->User();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | `string` |  |
+| `createdAt` | `string` |  |
 | `email` | `string` |  |
 | `id` | `string` |  |
 | `name` | `string` |  |
@@ -378,7 +382,7 @@ Create an instance: `$user = $client->User();`
 #### Example: Load
 
 ```php
-// load() returns the bare User record (throws on error).
+// load() returns the ENTITY — call data_get() for the User record (throws on error).
 $user = $client->User()->load(["id" => "user_id"]);
 ```
 
@@ -469,15 +473,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$health = $client->Health();
-$health->load();
+$post = $client->Post();
+$post->list();
 
-// $health->data_get() now returns the health data from the last load
-// $health->match_get() returns the last match criteria
+// $post->data_get() now returns the post data from the last list
+// $post->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

@@ -115,11 +115,11 @@ function post_direct_setup(mockres)
   local calls = {}
 
   local env = runner.env_override({
-    ["MOCKAPISERVICE_TEST_POST_ENTID"] = {},
-    ["MOCKAPISERVICE_TEST_LIVE"] = "FALSE",
+    ["MOCK_API_SERVICE_TEST_POST_ENTID"] = {},
+    ["MOCK_API_SERVICE_TEST_LIVE"] = "FALSE",
   })
 
-  local live = env["MOCKAPISERVICE_TEST_LIVE"] == "TRUE"
+  local live = env["MOCK_API_SERVICE_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {

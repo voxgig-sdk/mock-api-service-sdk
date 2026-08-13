@@ -48,7 +48,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local health, err = client:Health():load()
+local posts, err = client:Post():list()
 if err then error(err) end
 ```
 
@@ -106,7 +106,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Health():load()
+local result, err = client:Post():list()
 -- result is the returned data; err is set on failure
 ```
 
@@ -244,10 +244,10 @@ API path: `/ping`
 | Field | Description |
 | --- | --- |
 | `body` |  |
-| `created_at` |  |
+| `createdAt` |  |
 | `id` |  |
 | `title` |  |
-| `user_id` |  |
+| `userId` |  |
 
 Operations: List, Load.
 
@@ -257,7 +257,7 @@ API path: `/posts`
 
 | Field | Description |
 | --- | --- |
-| `created_at` |  |
+| `createdAt` |  |
 | `email` |  |
 | `id` |  |
 | `name` |  |
@@ -312,10 +312,10 @@ Create an instance: `local post = client:Post(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `body` | `string` |  |
-| `created_at` | `string` |  |
+| `createdAt` | `string` |  |
 | `id` | `string` |  |
 | `title` | `string` |  |
-| `user_id` | `string` |  |
+| `userId` | `string` |  |
 
 #### Example: Load
 
@@ -348,7 +348,7 @@ Create an instance: `local user = client:User(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | `string` |  |
+| `createdAt` | `string` |  |
 | `email` | `string` |  |
 | `id` | `string` |  |
 | `name` | `string` |  |
@@ -446,15 +446,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local health = client:Health()
-health:load()
+local post = client:Post()
+post:list()
 
--- health:data_get() now returns the health data from the last load
--- health:match_get() returns the last match criteria
+-- post:data_get() now returns the post data from the last list
+-- post:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

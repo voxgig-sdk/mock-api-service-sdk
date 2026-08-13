@@ -38,7 +38,7 @@ client = MockApiServiceSDK()
 
 ### 3. Load a health
 
-`load()` returns the bare record (a `dict`) and raises on error.
+`load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python
 try:
@@ -55,10 +55,10 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    health = client.Health().load()
-    print(health)
+    posts = client.Post().list()
+    print(posts)
 except Exception as err:
-    print(f"load failed: {err}")
+    print(f"list failed: {err}")
 ```
 
 `direct()` does **not** raise — it returns the result envelope. Branch
@@ -122,9 +122,10 @@ Create a mock client for unit testing — no server required:
 ```python
 client = MockApiServiceSDK.test()
 
-# Entity ops return the bare record and raise on error.
-health = client.Health().load()
-# health contains the mock response record
+# Entity ops return the ENTITY and raises on error;
+# call data_get() for the record.
+post = client.Post().list()
+# post contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -224,7 +225,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (a `dict` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
 ops, a `list` for `list`) and raise on error. Wrap calls in
 `try`/`except` to handle failures.
 
@@ -258,10 +259,10 @@ API path: `/ping`
 | Field | Description |
 | --- | --- |
 | `body` |  |
-| `created_at` |  |
+| `createdAt` |  |
 | `id` |  |
 | `title` |  |
-| `user_id` |  |
+| `userId` |  |
 
 Operations: List, Load.
 
@@ -271,7 +272,7 @@ API path: `/posts`
 
 | Field | Description |
 | --- | --- |
-| `created_at` |  |
+| `createdAt` |  |
 | `email` |  |
 | `id` |  |
 | `name` |  |
@@ -326,10 +327,10 @@ Create an instance: `post = client.Post()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `body` | `str` |  |
-| `created_at` | `str` |  |
+| `createdAt` | `str` |  |
 | `id` | `str` |  |
 | `title` | `str` |  |
-| `user_id` | `str` |  |
+| `userId` | `str` |  |
 
 #### Example: Load
 
@@ -362,7 +363,7 @@ Create an instance: `user = client.User()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | `str` |  |
+| `createdAt` | `str` |  |
 | `email` | `str` |  |
 | `id` | `str` |  |
 | `name` | `str` |  |
@@ -459,15 +460,15 @@ Import entity or utility modules directly only when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-health = client.Health()
-health.load()
+post = client.Post()
+post.list()
 
-# health.data_get() now returns the health data from the last load
-# health.match_get() returns the last match criteria
+# post.data_get() now returns the post data from the last list
+# post.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

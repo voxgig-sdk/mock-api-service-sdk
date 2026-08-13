@@ -30,10 +30,10 @@ class HealthLoadMatch
 class Post
 {
     public ?string $body = null;
-    public ?string $created_at = null;
+    public ?string $createdAt = null;
     public ?string $id = null;
     public ?string $title = null;
-    public ?string $user_id = null;
+    public ?string $userId = null;
 }
 
 /** Request payload for Post#load. */
@@ -46,16 +46,16 @@ class PostLoadMatch
 class PostListMatch
 {
     public ?string $body = null;
-    public ?string $created_at = null;
+    public ?string $createdAt = null;
     public ?string $id = null;
     public ?string $title = null;
-    public ?string $user_id = null;
+    public ?string $userId = null;
 }
 
 /** User entity data model. */
 class User
 {
-    public ?string $created_at = null;
+    public ?string $createdAt = null;
     public ?string $email = null;
     public ?string $id = null;
     public ?string $name = null;
@@ -71,7 +71,7 @@ class UserLoadMatch
 /** Request payload for User#list. */
 class UserListMatch
 {
-    public ?string $created_at = null;
+    public ?string $createdAt = null;
     public ?string $email = null;
     public ?string $id = null;
     public ?string $name = null;
@@ -81,7 +81,7 @@ class UserListMatch
 /** Request payload for User#create. */
 class UserCreateData
 {
-    public ?string $created_at = null;
+    public ?string $createdAt = null;
     public ?string $email = null;
     public ?string $id = null;
     public ?string $name = null;
@@ -92,6 +92,10 @@ class UserCreateData
 class UserUpdateData
 {
     public string $id;
+    public ?string $createdAt = null;
+    public ?string $email = null;
+    public ?string $name = null;
+    public ?string $username = null;
 }
 
 /** Request payload for User#remove. */

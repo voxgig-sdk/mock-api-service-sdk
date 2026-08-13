@@ -23,8 +23,8 @@ module MockApiServiceTestRunner
   end
 
   def self.env_override(m)
-    live = getenv("MOCKAPISERVICE_TEST_LIVE")
-    override = getenv("MOCKAPISERVICE_TEST_OVERRIDE")
+    live = getenv("MOCK_API_SERVICE_TEST_LIVE")
+    override = getenv("MOCK_API_SERVICE_TEST_OVERRIDE")
 
     if live == "TRUE" || override == "TRUE"
       m.each_key do |key|
@@ -44,8 +44,8 @@ module MockApiServiceTestRunner
       end
     end
 
-    explain = getenv("MOCKAPISERVICE_TEST_EXPLAIN")
-    m["MOCKAPISERVICE_TEST_EXPLAIN"] = explain if explain && !explain.empty?
+    explain = getenv("MOCK_API_SERVICE_TEST_EXPLAIN")
+    m["MOCK_API_SERVICE_TEST_EXPLAIN"] = explain if explain && !explain.empty?
 
     m
   end

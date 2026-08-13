@@ -114,11 +114,11 @@ def user_direct_setup(mockres)
   calls = []
 
   env = Runner.env_override({
-    "MOCKAPISERVICE_TEST_USER_ENTID" => {},
-    "MOCKAPISERVICE_TEST_LIVE" => "FALSE",
+    "MOCK_API_SERVICE_TEST_USER_ENTID" => {},
+    "MOCK_API_SERVICE_TEST_LIVE" => "FALSE",
   })
 
-  live = env["MOCKAPISERVICE_TEST_LIVE"] == "TRUE"
+  live = env["MOCK_API_SERVICE_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {

@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# MockApiService SDK exists test
 
 import pytest
 from mockapiservice_sdk import MockApiServiceSDK

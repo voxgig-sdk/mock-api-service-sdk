@@ -16,23 +16,23 @@
 
 ---@class Post
 ---@field body? string
----@field created_at? string
+---@field createdAt? string
 ---@field id? string
 ---@field title? string
----@field user_id? string
+---@field userId? string
 
 ---@class PostLoadMatch
 ---@field id string
 
 ---@class PostListMatch
 ---@field body? string
----@field created_at? string
+---@field createdAt? string
 ---@field id? string
 ---@field title? string
----@field user_id? string
+---@field userId? string
 
 ---@class User
----@field created_at? string
+---@field createdAt? string
 ---@field email? string
 ---@field id? string
 ---@field name? string
@@ -42,14 +42,14 @@
 ---@field id string
 
 ---@class UserListMatch
----@field created_at? string
+---@field createdAt? string
 ---@field email? string
 ---@field id? string
 ---@field name? string
 ---@field username? string
 
 ---@class UserCreateData
----@field created_at? string
+---@field createdAt? string
 ---@field email? string
 ---@field id? string
 ---@field name? string
@@ -57,6 +57,10 @@
 
 ---@class UserUpdateData
 ---@field id string
+---@field createdAt? string
+---@field email? string
+---@field name? string
+---@field username? string
 
 ---@class UserRemoveMatch
 ---@field id string

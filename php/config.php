@@ -56,6 +56,7 @@ class MockApiServiceConfig
                 [
                   'active' => true,
                   'args' => [],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/ping',
                   'parts' => [
@@ -87,7 +88,7 @@ class MockApiServiceConfig
             ],
             [
               'active' => true,
-              'name' => 'created_at',
+              'name' => 'createdAt',
               'req' => false,
               'type' => '`$STRING`',
               'index$' => 1,
@@ -108,7 +109,7 @@ class MockApiServiceConfig
             ],
             [
               'active' => true,
-              'name' => 'user_id',
+              'name' => 'userId',
               'req' => false,
               'type' => '`$STRING`',
               'index$' => 4,
@@ -144,6 +145,7 @@ class MockApiServiceConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/posts',
                   'parts' => [
@@ -183,6 +185,7 @@ class MockApiServiceConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/posts/{id}',
                   'parts' => [
@@ -212,7 +215,7 @@ class MockApiServiceConfig
           'fields' => [
             [
               'active' => true,
-              'name' => 'created_at',
+              'name' => 'createdAt',
               'req' => false,
               'type' => '`$STRING`',
               'index$' => 0,
@@ -275,6 +278,7 @@ class MockApiServiceConfig
                 [
                   'active' => true,
                   'args' => [],
+                  'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/users',
                   'parts' => [
@@ -318,6 +322,7 @@ class MockApiServiceConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/users',
                   'parts' => [
@@ -357,6 +362,7 @@ class MockApiServiceConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/users/{id}',
                   'parts' => [
@@ -396,6 +402,7 @@ class MockApiServiceConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'DELETE',
                   'orig' => '/users/{id}',
                   'parts' => [
@@ -435,6 +442,7 @@ class MockApiServiceConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'PUT',
                   'orig' => '/users/{id}',
                   'parts' => [

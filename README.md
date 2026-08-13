@@ -38,18 +38,27 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = MockApiServiceSDK.test()
-const health = await client.Health().load()
-// health is a bare Health populated with mock data
-console.log(health)
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = MockApiServiceSDK.test({
+  entity: {
+    post: {
+      test01: { id: 'test01' },
+    },
+  },
+})
+const posts = await client.Post().list()
+// posts is an array of Post entities, populated with mock data
+// — call posts[0].data() for the record itself
+console.log(posts)
 ```
 
 ### Python
 
 ```python
 client = MockApiServiceSDK.test()
-health = client.Health().load()
-print(health)
+posts = client.Post().list()
+print(posts)
 ```
 
 ### PHP
@@ -57,16 +66,16 @@ print(health)
 ```php
 // Seed fixture data so offline calls resolve without a live server.
 $client = MockApiServiceSDK::test([
-    "entity" => ["health" => ["test01" => []]],
+    "entity" => ["post" => ["test01" => ["id" => "test01"]]],
 ]);
-$health = $client->Health()->load();
+$posts = $client->Post()->list();
 ```
 
 ### Golang
 
 ```go
 client := sdk.Test()
-result, err := client.Health(nil).Load(
+result, err := client.Post(nil).List(
     nil, nil,
 )
 ```
@@ -76,16 +85,16 @@ result, err := client.Health(nil).Load(
 ```ruby
 # Seed fixture data so offline calls resolve without a live server.
 client = MockApiServiceSDK.test({
-  "entity" => { "health" => { "test01" => {} } },
+  "entity" => { "post" => { "test01" => { "id" => "test01" } } },
 })
-health = client.Health.load()
+posts = client.Post.list()
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:Health():load()
+local results, err = client:Post():list()
 ```
 
 ## Packages
@@ -184,7 +193,7 @@ require_once 'mockapiservice_sdk.php';
 $client = new MockApiServiceSDK();
 
 
-// Load a specific health (returns the bare record; throws on error)
+// Load a specific health (returns the ENTITY; call data_get() for the record; throws on error)
 $health = $client->Health()->load();
 print_r($health);
 ```
@@ -212,7 +221,7 @@ require_relative "MockApiService_sdk"
 client = MockApiServiceSDK.new
 
 
-# Load a specific health (returns the bare record; raises on error)
+# Load a specific health (returns the ENTITY; call data_get for the record)
 health = client.Health.load()
 puts health
 ```
@@ -346,6 +355,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://docs.dummyapi.online/](https://docs.dummyapi.online/)
 

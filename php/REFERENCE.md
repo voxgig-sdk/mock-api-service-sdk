@@ -154,10 +154,10 @@ $post = $client->Post();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `body` | `string` | No |  |
-| `created_at` | `string` | No |  |
+| `createdAt` | `string` | No |  |
 | `id` | `string` | No |  |
 | `title` | `string` | No |  |
-| `user_id` | `string` | No |  |
+| `userId` | `string` | No |  |
 
 ### Operations
 
@@ -217,7 +217,7 @@ $user = $client->User();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | `string` | No |  |
+| `createdAt` | `string` | No |  |
 | `email` | `string` | No |  |
 | `id` | `string` | No |  |
 | `name` | `string` | No |  |
@@ -227,7 +227,7 @@ $user = $client->User();
 
 | Field | load | list | create | update | remove |
 | --- | --- | --- | --- | --- | --- |
-| `created_at` | - | - | - | - | - |
+| `createdAt` | - | - | - | - | - |
 | `email` | - | - | Yes | Yes | - |
 | `id` | - | - | - | - | - |
 | `name` | - | - | Yes | Yes | - |

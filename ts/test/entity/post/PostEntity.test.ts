@@ -26,8 +26,8 @@ import {
 describe('PostEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when MOCKAPISERVICE_TEST_LIVE=TRUE.
-  afterEach(liveDelay('MOCKAPISERVICE_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when MOCK_API_SERVICE_TEST_LIVE=TRUE.
+  afterEach(liveDelay('MOCK_API_SERVICE_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = MockApiServiceSDK.test()
@@ -63,13 +63,13 @@ describe('PostEntity', async () => {
     const post_ref01_ent = client.Post()
     const post_ref01_match: any = {}
 
-    const post_ref01_list = await post_ref01_ent.list(post_ref01_match)
+    const post_ref01_list = (await post_ref01_ent.list(post_ref01_match)).map((e: any) => e.data())
 
 
     // LOAD
     const post_ref01_match_dt0: any = {}
     post_ref01_match_dt0.id = post_ref01_data.id
-    const post_ref01_data_dt0 = await post_ref01_ent.load(post_ref01_match_dt0)
+    const post_ref01_data_dt0 = (await post_ref01_ent.load(post_ref01_match_dt0)).data()
     assert(post_ref01_data_dt0.id === post_ref01_data.id)
 
 

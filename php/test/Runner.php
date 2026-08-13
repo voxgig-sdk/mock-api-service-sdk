@@ -43,8 +43,8 @@ class MockApiServiceTestRunner
 
     public static function env_override(array $m): array
     {
-        $live = self::getenv('MOCKAPISERVICE_TEST_LIVE');
-        $override = self::getenv('MOCKAPISERVICE_TEST_OVERRIDE');
+        $live = self::getenv('MOCK_API_SERVICE_TEST_LIVE');
+        $override = self::getenv('MOCK_API_SERVICE_TEST_OVERRIDE');
 
         if ($live === 'TRUE' || $override === 'TRUE') {
             foreach (array_keys($m) as $key) {
@@ -63,9 +63,9 @@ class MockApiServiceTestRunner
             }
         }
 
-        $explain = self::getenv('MOCKAPISERVICE_TEST_EXPLAIN');
+        $explain = self::getenv('MOCK_API_SERVICE_TEST_EXPLAIN');
         if ($explain !== null && $explain !== '') {
-            $m['MOCKAPISERVICE_TEST_EXPLAIN'] = $explain;
+            $m['MOCK_API_SERVICE_TEST_EXPLAIN'] = $explain;
         }
 
         return $m;

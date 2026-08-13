@@ -39,7 +39,7 @@ HealthLoadMatch = Struct.new(
 # @!attribute [rw] body
 #   @return [String, nil]
 #
-# @!attribute [rw] created_at
+# @!attribute [rw] createdAt
 #   @return [String, nil]
 #
 # @!attribute [rw] id
@@ -48,14 +48,14 @@ HealthLoadMatch = Struct.new(
 # @!attribute [rw] title
 #   @return [String, nil]
 #
-# @!attribute [rw] user_id
+# @!attribute [rw] userId
 #   @return [String, nil]
 Post = Struct.new(
   :body,
-  :created_at,
+  :createdAt,
   :id,
   :title,
-  :user_id,
+  :userId,
   keyword_init: true
 )
 
@@ -73,7 +73,7 @@ PostLoadMatch = Struct.new(
 # @!attribute [rw] body
 #   @return [String, nil]
 #
-# @!attribute [rw] created_at
+# @!attribute [rw] createdAt
 #   @return [String, nil]
 #
 # @!attribute [rw] id
@@ -82,20 +82,20 @@ PostLoadMatch = Struct.new(
 # @!attribute [rw] title
 #   @return [String, nil]
 #
-# @!attribute [rw] user_id
+# @!attribute [rw] userId
 #   @return [String, nil]
 PostListMatch = Struct.new(
   :body,
-  :created_at,
+  :createdAt,
   :id,
   :title,
-  :user_id,
+  :userId,
   keyword_init: true
 )
 
 # User entity data model.
 #
-# @!attribute [rw] created_at
+# @!attribute [rw] createdAt
 #   @return [String, nil]
 #
 # @!attribute [rw] email
@@ -110,7 +110,7 @@ PostListMatch = Struct.new(
 # @!attribute [rw] username
 #   @return [String, nil]
 User = Struct.new(
-  :created_at,
+  :createdAt,
   :email,
   :id,
   :name,
@@ -129,7 +129,7 @@ UserLoadMatch = Struct.new(
 
 # Request payload for User#list.
 #
-# @!attribute [rw] created_at
+# @!attribute [rw] createdAt
 #   @return [String, nil]
 #
 # @!attribute [rw] email
@@ -144,7 +144,7 @@ UserLoadMatch = Struct.new(
 # @!attribute [rw] username
 #   @return [String, nil]
 UserListMatch = Struct.new(
-  :created_at,
+  :createdAt,
   :email,
   :id,
   :name,
@@ -154,7 +154,7 @@ UserListMatch = Struct.new(
 
 # Request payload for User#create.
 #
-# @!attribute [rw] created_at
+# @!attribute [rw] createdAt
 #   @return [String, nil]
 #
 # @!attribute [rw] email
@@ -169,7 +169,7 @@ UserListMatch = Struct.new(
 # @!attribute [rw] username
 #   @return [String, nil]
 UserCreateData = Struct.new(
-  :created_at,
+  :createdAt,
   :email,
   :id,
   :name,
@@ -181,8 +181,24 @@ UserCreateData = Struct.new(
 #
 # @!attribute [rw] id
 #   @return [String]
+#
+# @!attribute [rw] createdAt
+#   @return [String, nil]
+#
+# @!attribute [rw] email
+#   @return [String, nil]
+#
+# @!attribute [rw] name
+#   @return [String, nil]
+#
+# @!attribute [rw] username
+#   @return [String, nil]
 UserUpdateData = Struct.new(
   :id,
+  :createdAt,
+  :email,
+  :name,
+  :username,
   keyword_init: true
 )
 

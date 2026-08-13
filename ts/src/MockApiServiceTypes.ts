@@ -17,10 +17,10 @@ export interface HealthLoadMatch {
 
 export interface Post {
   body?: string
-  created_at?: string
+  createdAt?: string
   id?: string
   title?: string
-  user_id?: string
+  userId?: string
 }
 
 export interface PostLoadMatch {
@@ -29,14 +29,14 @@ export interface PostLoadMatch {
 
 export interface PostListMatch {
   body?: string
-  created_at?: string
+  createdAt?: string
   id?: string
   title?: string
-  user_id?: string
+  userId?: string
 }
 
 export interface User {
-  created_at?: string
+  createdAt?: string
   email?: string
   id?: string
   name?: string
@@ -48,7 +48,7 @@ export interface UserLoadMatch {
 }
 
 export interface UserListMatch {
-  created_at?: string
+  createdAt?: string
   email?: string
   id?: string
   name?: string
@@ -56,7 +56,7 @@ export interface UserListMatch {
 }
 
 export interface UserCreateData {
-  created_at?: string
+  createdAt?: string
   email?: string
   id?: string
   name?: string
@@ -65,6 +65,10 @@ export interface UserCreateData {
 
 export interface UserUpdateData {
   id: string
+  createdAt?: string
+  email?: string
+  name?: string
+  username?: string
 }
 
 export interface UserRemoveMatch {

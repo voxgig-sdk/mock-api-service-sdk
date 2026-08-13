@@ -66,12 +66,12 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-health, err := client.Health(nil).Load(nil, nil)
+posts, err := client.Post(nil).List(nil, nil)
 if err != nil {
     // handle err
     return
 }
-_ = health
+_ = posts
 ```
 
 `Direct` follows the same `(value, error)` convention:
@@ -135,13 +135,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-health, err := client.Health(nil).Load(
+post, err := client.Post(nil).List(
     nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(health) // the returned mock data
+fmt.Println(post) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -277,10 +277,10 @@ API path: `/ping`
 | Field | Description |
 | --- | --- |
 | `"body"` |  |
-| `"created_at"` |  |
+| `"createdAt"` |  |
 | `"id"` |  |
 | `"title"` |  |
-| `"user_id"` |  |
+| `"userId"` |  |
 
 Operations: List, Load.
 
@@ -290,7 +290,7 @@ API path: `/posts`
 
 | Field | Description |
 | --- | --- |
-| `"created_at"` |  |
+| `"createdAt"` |  |
 | `"email"` |  |
 | `"id"` |  |
 | `"name"` |  |
@@ -349,10 +349,10 @@ Create an instance: `post := client.Post(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `body` | `string` |  |
-| `created_at` | `string` |  |
+| `createdAt` | `string` |  |
 | `id` | `string` |  |
 | `title` | `string` |  |
-| `user_id` | `string` |  |
+| `userId` | `string` |  |
 
 #### Example: Load
 
@@ -393,7 +393,7 @@ Create an instance: `user := client.User(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | `string` |  |
+| `createdAt` | `string` |  |
 | `email` | `string` |  |
 | `id` | `string` |  |
 | `name` | `string` |  |
@@ -500,15 +500,15 @@ like `core.ToMapAny`.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `Load`, the entity
+Entity instances are stateful. After a successful `List`, the entity
 stores the returned data and match criteria internally.
 
 ```go
-health := client.Health(nil)
-health.Load(nil, nil)
+post := client.Post(nil)
+post.List(nil, nil)
 
-// health.Data() now returns the health data from the last load
-// health.Match() returns the last match criteria
+// post.Data() now returns the post data from the last list
+// post.Match() returns the last match criteria
 ```
 
 Call `Make()` to create a fresh instance with the same configuration

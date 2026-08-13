@@ -34,7 +34,7 @@ client = MockApiServiceSDK.new
 
 ```ruby
 begin
-  # load returns the bare Health record (raises on error).
+  # load returns the ENTITY — call data_get for the Health record (raises on error).
   health = client.Health.load()
   puts health
 rescue => err
@@ -49,9 +49,9 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  health = client.Health.load()
+  posts = client.Post.list()
 rescue => err
-  warn "load failed: #{err}"
+  warn "list failed: #{err}"
 end
 ```
 
@@ -112,14 +112,18 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = MockApiServiceSDK.test
+client = MockApiServiceSDK.test({
+  "entity" => { "post" => { "test01" => { "id" => "test01" } } },
+})
 
-# Entity ops return the bare mock record (raises on error).
-health = client.Health.load()
-puts health
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
+post = client.Post.list()
+puts post
 ```
 
 ### Use a custom fetch function
@@ -252,10 +256,10 @@ API path: `/ping`
 | Field | Description |
 | --- | --- |
 | `body` |  |
-| `created_at` |  |
+| `createdAt` |  |
 | `id` |  |
 | `title` |  |
-| `user_id` |  |
+| `userId` |  |
 
 Operations: List, Load.
 
@@ -265,7 +269,7 @@ API path: `/posts`
 
 | Field | Description |
 | --- | --- |
-| `created_at` |  |
+| `createdAt` |  |
 | `email` |  |
 | `id` |  |
 | `name` |  |
@@ -300,7 +304,7 @@ Create an instance: `health = client.Health`
 #### Example: Load
 
 ```ruby
-# load returns the bare Health record (raises on error).
+# load returns the ENTITY — call data_get for the Health record (raises on error).
 health = client.Health.load()
 ```
 
@@ -321,15 +325,15 @@ Create an instance: `post = client.Post`
 | Field | Type | Description |
 | --- | --- | --- |
 | `body` | `String` |  |
-| `created_at` | `String` |  |
+| `createdAt` | `String` |  |
 | `id` | `String` |  |
 | `title` | `String` |  |
-| `user_id` | `String` |  |
+| `userId` | `String` |  |
 
 #### Example: Load
 
 ```ruby
-# load returns the bare Post record (raises on error).
+# load returns the ENTITY — call data_get for the Post record (raises on error).
 post = client.Post.load({ "id" => "post_id" })
 ```
 
@@ -359,7 +363,7 @@ Create an instance: `user = client.User`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | `String` |  |
+| `createdAt` | `String` |  |
 | `email` | `String` |  |
 | `id` | `String` |  |
 | `name` | `String` |  |
@@ -368,7 +372,7 @@ Create an instance: `user = client.User`
 #### Example: Load
 
 ```ruby
-# load returns the bare User record (raises on error).
+# load returns the ENTITY — call data_get for the User record (raises on error).
 user = client.User.load({ "id" => "user_id" })
 ```
 
@@ -459,15 +463,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-health = client.Health
-health.load()
+post = client.Post
+post.list()
 
-# health.data_get now returns the health data from the last load
-# health.match_get returns the last match criteria
+# post.data_get now returns the post data from the last list
+# post.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration

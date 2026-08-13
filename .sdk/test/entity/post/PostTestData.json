@@ -3,24 +3,24 @@
     "post": {
       "POST00": {
         "body": "s32",
-        "created_at": "s33",
+        "createdAt": "s33",
         "id": "POST00",
         "title": "s35",
-        "user_id": "USER01"
+        "userId": "s36"
       },
       "POST01": {
         "body": "s64",
-        "created_at": "s65",
+        "createdAt": "s65",
         "id": "POST01",
         "title": "s67",
-        "user_id": "USER01"
+        "userId": "s68"
       },
       "POST02": {
         "body": "s96",
-        "created_at": "s97",
+        "createdAt": "s97",
         "id": "POST02",
         "title": "s99",
-        "user_id": "USER01"
+        "userId": "s9a"
       }
     }
   },
@@ -28,9 +28,9 @@
     "post": {
       "post_ref01": {
         "body": "sc8",
-        "created_at": "sc9",
+        "createdAt": "sc9",
         "title": "scb",
-        "user_id": "USER01"
+        "userId": "scc"
       }
     }
   }

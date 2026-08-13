@@ -16,11 +16,11 @@
 import pytest
 
 from mockapiservice_sdk import MockApiServiceSDK
-from core.error import MockApiServiceError
-from core.result import MockApiServiceResult
-from core.response import MockApiServiceResponse
-from core.spec import MockApiServiceSpec
-from feature.base_feature import MockApiServiceBaseFeature
+from mockapiservice_sdk.core.error import MockApiServiceError
+from mockapiservice_sdk.core.result import MockApiServiceResult
+from mockapiservice_sdk.core.response import MockApiServiceResponse
+from mockapiservice_sdk.core.spec import MockApiServiceSpec
+from mockapiservice_sdk.feature.base_feature import MockApiServiceBaseFeature
 
 
 def _client():

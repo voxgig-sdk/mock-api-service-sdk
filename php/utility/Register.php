@@ -23,6 +23,7 @@ require_once __DIR__ . '/MakeUrl.php';
 require_once __DIR__ . '/Param.php';
 require_once __DIR__ . '/PrepareAuth.php';
 require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/Graphql.php';
 require_once __DIR__ . '/PrepareHeaders.php';
 require_once __DIR__ . '/PrepareMethod.php';
 require_once __DIR__ . '/PrepareParams.php';
@@ -59,6 +60,8 @@ MockApiServiceUtility::setRegistrar(function (MockApiServiceUtility $u): void {
     $u->prepare_params = [MockApiServicePrepareParams::class, 'call'];
     $u->prepare_path = [MockApiServicePreparePath::class, 'call'];
     $u->prepare_query = [MockApiServicePrepareQuery::class, 'call'];
+    $u->graphql_body = [MockApiServiceGraphql::class, 'body'];
+    $u->graphql_errors = [MockApiServiceGraphql::class, 'errors'];
     $u->result_basic = [MockApiServiceResultBasic::class, 'call'];
     $u->result_body = [MockApiServiceResultBody::class, 'call'];
     $u->result_headers = [MockApiServiceResultHeaders::class, 'call'];

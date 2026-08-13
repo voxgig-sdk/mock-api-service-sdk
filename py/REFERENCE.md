@@ -148,10 +148,10 @@ post = client.Post()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `body` | `str` | No |  |
-| `created_at` | `str` | No |  |
+| `createdAt` | `str` | No |  |
 | `id` | `str` | No |  |
 | `title` | `str` | No |  |
-| `user_id` | `str` | No |  |
+| `userId` | `str` | No |  |
 
 ### Operations
 
@@ -212,7 +212,7 @@ user = client.User()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | `str` | No |  |
+| `createdAt` | `str` | No |  |
 | `email` | `str` | No |  |
 | `id` | `str` | No |  |
 | `name` | `str` | No |  |
@@ -222,7 +222,7 @@ user = client.User()
 
 | Field | load | list | create | update | remove |
 | --- | --- | --- | --- | --- | --- |
-| `created_at` | - | - | - | - | - |
+| `createdAt` | - | - | - | - | - |
 | `email` | - | - | Yes | Yes | - |
 | `id` | - | - | - | - | - |
 | `name` | - | - | Yes | Yes | - |

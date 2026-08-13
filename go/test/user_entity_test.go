@@ -93,7 +93,7 @@ func TestUserEntity(t *testing.T) {
 		// The basic flow consumes synthetic IDs from the fixture. In live mode
 		// without an *_ENTID env override, those IDs hit the live API and 4xx.
 		if setup.syntheticOnly {
-			t.Skip("live entity test uses synthetic IDs from fixture — set MOCKAPISERVICE_TEST_USER_ENTID JSON to run live")
+			t.Skip("live entity test uses synthetic IDs from fixture — set MOCK_API_SERVICE_TEST_USER_ENTID JSON to run live")
 			return
 		}
 		client := setup.client
@@ -107,7 +107,7 @@ func TestUserEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("create failed: %v", err)
 		}
-		userRef01Data = core.ToMapAny(userRef01DataResult)
+		userRef01Data = core.ToMapAny(entityData(userRef01DataResult))
 		if userRef01Data == nil {
 			t.Fatal("expected create result to be a map")
 		}
@@ -137,7 +137,7 @@ func TestUserEntity(t *testing.T) {
 			"id": userRef01Data["id"],
 		}
 
-		userRef01MarkdefUp0Name := "created_at"
+		userRef01MarkdefUp0Name := "createdAt"
 		userRef01MarkdefUp0Value := fmt.Sprintf("Mark01-user_ref01_%d", setup.now)
 		userRef01DataUp0Up[userRef01MarkdefUp0Name] = userRef01MarkdefUp0Value
 
@@ -145,7 +145,7 @@ func TestUserEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("update failed: %v", err)
 		}
-		userRef01ResdataUp0 := core.ToMapAny(userRef01ResdataUp0Result)
+		userRef01ResdataUp0 := core.ToMapAny(entityData(userRef01ResdataUp0Result))
 		if userRef01ResdataUp0 == nil {
 			t.Fatal("expected update result to be a map")
 		}
@@ -164,7 +164,7 @@ func TestUserEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		userRef01DataDt0LoadResult := core.ToMapAny(userRef01DataDt0Loaded)
+		userRef01DataDt0LoadResult := core.ToMapAny(entityData(userRef01DataDt0Loaded))
 		if userRef01DataDt0LoadResult == nil {
 			t.Fatal("expected load result to be a map")
 		}
@@ -238,21 +238,21 @@ func userBasicSetup(extra map[string]any) *entityTestSetup {
 	// Detect ENTID env override before envOverride consumes it. When live
 	// mode is on without a real override, the basic test runs against synthetic
 	// IDs from the fixture and 4xx's. Surface this so the test can skip.
-	entidEnvRaw := os.Getenv("MOCKAPISERVICE_TEST_USER_ENTID")
+	entidEnvRaw := os.Getenv("MOCK_API_SERVICE_TEST_USER_ENTID")
 	idmapOverridden := entidEnvRaw != "" && strings.HasPrefix(strings.TrimSpace(entidEnvRaw), "{")
 
 	env := envOverride(map[string]any{
-		"MOCKAPISERVICE_TEST_USER_ENTID": idmap,
-		"MOCKAPISERVICE_TEST_LIVE":      "FALSE",
-		"MOCKAPISERVICE_TEST_EXPLAIN":   "FALSE",
+		"MOCK_API_SERVICE_TEST_USER_ENTID": idmap,
+		"MOCK_API_SERVICE_TEST_LIVE":      "FALSE",
+		"MOCK_API_SERVICE_TEST_EXPLAIN":   "FALSE",
 	})
 
-	idmapResolved := core.ToMapAny(env["MOCKAPISERVICE_TEST_USER_ENTID"])
+	idmapResolved := core.ToMapAny(env["MOCK_API_SERVICE_TEST_USER_ENTID"])
 	if idmapResolved == nil {
 		idmapResolved = core.ToMapAny(idmap)
 	}
 
-	if env["MOCKAPISERVICE_TEST_LIVE"] == "TRUE" {
+	if env["MOCK_API_SERVICE_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
 			},
@@ -261,13 +261,13 @@ func userBasicSetup(extra map[string]any) *entityTestSetup {
 		client = sdk.NewMockApiServiceSDK(core.ToMapAny(mergedOpts))
 	}
 
-	live := env["MOCKAPISERVICE_TEST_LIVE"] == "TRUE"
+	live := env["MOCK_API_SERVICE_TEST_LIVE"] == "TRUE"
 	return &entityTestSetup{
 		client:        client,
 		data:          entityData,
 		idmap:         idmapResolved,
 		env:           env,
-		explain:       env["MOCKAPISERVICE_TEST_EXPLAIN"] == "TRUE",
+		explain:       env["MOCK_API_SERVICE_TEST_EXPLAIN"] == "TRUE",
 		live:          live,
 		syntheticOnly: live && !idmapOverridden,
 		now:           time.Now().UnixMilli(),

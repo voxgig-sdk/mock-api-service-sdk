@@ -50,6 +50,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/ping",
                 ["parts"] = {
@@ -81,7 +82,7 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "created_at",
+            ["name"] = "createdAt",
             ["req"] = false,
             ["type"] = "`$STRING`",
             ["index$"] = 1,
@@ -102,7 +103,7 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "user_id",
+            ["name"] = "userId",
             ["req"] = false,
             ["type"] = "`$STRING`",
             ["index$"] = 4,
@@ -138,6 +139,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/posts",
                 ["parts"] = {
@@ -177,6 +179,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/posts/{id}",
                 ["parts"] = {
@@ -206,7 +209,7 @@ local function make_config()
         ["fields"] = {
           {
             ["active"] = true,
-            ["name"] = "created_at",
+            ["name"] = "createdAt",
             ["req"] = false,
             ["type"] = "`$STRING`",
             ["index$"] = 0,
@@ -269,6 +272,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/users",
                 ["parts"] = {
@@ -312,6 +316,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/users",
                 ["parts"] = {
@@ -351,6 +356,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/users/{id}",
                 ["parts"] = {
@@ -390,6 +396,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "DELETE",
                 ["orig"] = "/users/{id}",
                 ["parts"] = {
@@ -429,6 +436,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "PUT",
                 ["orig"] = "/users/{id}",
                 ["parts"] = {
