@@ -40,7 +40,7 @@ class MockApiServiceSDK
         $utility = new MockApiServiceUtility();
         $this->_utility = $utility;
 
-        $config = MockApiServiceConfig::make_config();
+        $config = MockApiServiceConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,
