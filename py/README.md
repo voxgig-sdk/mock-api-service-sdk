@@ -258,11 +258,11 @@ API path: `/ping`
 
 | Field | Description |
 | --- | --- |
-| `body` |  |
-| `createdAt` |  |
-| `id` |  |
-| `title` |  |
-| `userId` |  |
+| `body` | Post content |
+| `createdAt` | Timestamp when the post was created |
+| `id` | Unique identifier for the post |
+| `title` | Post title |
+| `userId` | ID of the user who created the post |
 
 Operations: List, Load.
 
@@ -272,11 +272,11 @@ API path: `/posts`
 
 | Field | Description |
 | --- | --- |
-| `createdAt` |  |
-| `email` |  |
-| `id` |  |
-| `name` |  |
-| `username` |  |
+| `createdAt` | Timestamp when the user was created |
+| `email` | User's email address |
+| `id` | Unique identifier for the user |
+| `name` | User's full name |
+| `username` | User's username |
 
 Operations: Create, List, Load, Remove, Update.
 
@@ -326,11 +326,11 @@ Create an instance: `post = client.Post()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `body` | `str` |  |
-| `createdAt` | `str` |  |
-| `id` | `str` |  |
-| `title` | `str` |  |
-| `userId` | `str` |  |
+| `body` | `str` | Post content |
+| `createdAt` | `str` | Timestamp when the post was created |
+| `id` | `str` | Unique identifier for the post |
+| `title` | `str` | Post title |
+| `userId` | `str` | ID of the user who created the post |
 
 #### Example: Load
 
@@ -363,11 +363,11 @@ Create an instance: `user = client.User()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `createdAt` | `str` |  |
-| `email` | `str` |  |
-| `id` | `str` |  |
-| `name` | `str` |  |
-| `username` | `str` |  |
+| `createdAt` | `str` | Timestamp when the user was created |
+| `email` | `str` | User's email address |
+| `id` | `str` | Unique identifier for the user |
+| `name` | `str` | User's full name |
+| `username` | `str` | User's username |
 
 #### Example: Load
 

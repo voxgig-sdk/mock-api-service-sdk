@@ -8,26 +8,31 @@ main: kit: entity: post: {
     {
       name: "body"
       req: false
+      short: "Post content"
       type: "`$STRING`"
     }
     {
       name: "createdAt"
       req: false
+      short: "Timestamp when the post was created"
       type: "`$STRING`"
     }
     {
       name: "id"
       req: false
+      short: "Unique identifier for the post"
       type: "`$STRING`"
     }
     {
       name: "title"
       req: false
+      short: "Post title"
       type: "`$STRING`"
     }
     {
       name: "userId"
       req: false
+      short: "ID of the user who created the post"
       type: "`$STRING`"
     }
   ]

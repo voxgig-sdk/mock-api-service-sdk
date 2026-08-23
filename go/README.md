@@ -6,7 +6,7 @@ The Golang SDK for the MockApiService API — an entity-oriented client using st
 
 It exposes the API as capitalised, semantic **Entities** — e.g. `client.Health(nil)` — each with the same small set of operations (`List`, `Load`, `Create`, `Update`, `Remove`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb`, `ts` — see
 > the [top-level README](../README.md).
 
 
@@ -276,11 +276,11 @@ API path: `/ping`
 
 | Field | Description |
 | --- | --- |
-| `"body"` |  |
-| `"createdAt"` |  |
-| `"id"` |  |
-| `"title"` |  |
-| `"userId"` |  |
+| `"body"` | Post content |
+| `"createdAt"` | Timestamp when the post was created |
+| `"id"` | Unique identifier for the post |
+| `"title"` | Post title |
+| `"userId"` | ID of the user who created the post |
 
 Operations: List, Load.
 
@@ -290,11 +290,11 @@ API path: `/posts`
 
 | Field | Description |
 | --- | --- |
-| `"createdAt"` |  |
-| `"email"` |  |
-| `"id"` |  |
-| `"name"` |  |
-| `"username"` |  |
+| `"createdAt"` | Timestamp when the user was created |
+| `"email"` | User's email address |
+| `"id"` | Unique identifier for the user |
+| `"name"` | User's full name |
+| `"username"` | User's username |
 
 Operations: Create, List, Load, Remove, Update.
 
@@ -348,11 +348,11 @@ Create an instance: `post := client.Post(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `body` | `string` |  |
-| `createdAt` | `string` |  |
-| `id` | `string` |  |
-| `title` | `string` |  |
-| `userId` | `string` |  |
+| `body` | `string` | Post content |
+| `createdAt` | `string` | Timestamp when the post was created |
+| `id` | `string` | Unique identifier for the post |
+| `title` | `string` | Post title |
+| `userId` | `string` | ID of the user who created the post |
 
 #### Example: Load
 
@@ -393,11 +393,11 @@ Create an instance: `user := client.User(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `createdAt` | `string` |  |
-| `email` | `string` |  |
-| `id` | `string` |  |
-| `name` | `string` |  |
-| `username` | `string` |  |
+| `createdAt` | `string` | Timestamp when the user was created |
+| `email` | `string` | User's email address |
+| `id` | `string` | Unique identifier for the user |
+| `name` | `string` | User's full name |
+| `username` | `string` | User's username |
 
 #### Example: Load
 

@@ -28,6 +28,9 @@ def make_config():
     return {
         "main": {
             "name": "MockApiService",
+            "slug": "mock-api-service",
+            "version": "0.0.1",
+            "target": "py",
         },
         "feature": {
             "test": {
@@ -90,22 +93,27 @@ def make_config():
         "fields": [
           {
             "name": "body",
+            "short": "Post content",
             "type": "`$STRING`",
           },
           {
             "name": "createdAt",
+            "short": "Timestamp when the post was created",
             "type": "`$STRING`",
           },
           {
             "name": "id",
+            "short": "Unique identifier for the post",
             "type": "`$STRING`",
           },
           {
             "name": "title",
+            "short": "Post title",
             "type": "`$STRING`",
           },
           {
             "name": "userId",
+            "short": "ID of the user who created the post",
             "type": "`$STRING`",
           },
         ],
@@ -197,6 +205,7 @@ def make_config():
         "fields": [
           {
             "name": "createdAt",
+            "short": "Timestamp when the user was created",
             "type": "`$STRING`",
           },
           {
@@ -211,10 +220,12 @@ def make_config():
                 "type": "`$STRING`",
               },
             },
+            "short": "User's email address",
             "type": "`$STRING`",
           },
           {
             "name": "id",
+            "short": "Unique identifier for the user",
             "type": "`$STRING`",
           },
           {
@@ -229,10 +240,12 @@ def make_config():
                 "type": "`$STRING`",
               },
             },
+            "short": "User's full name",
             "type": "`$STRING`",
           },
           {
             "name": "username",
+            "short": "User's username",
             "type": "`$STRING`",
           },
         ],

@@ -154,11 +154,11 @@ post = client.Post
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `body` | `String` | No |  |
-| `createdAt` | `String` | No |  |
-| `id` | `String` | No |  |
-| `title` | `String` | No |  |
-| `userId` | `String` | No |  |
+| `body` | `String` | No | Post content |
+| `createdAt` | `String` | No | Timestamp when the post was created |
+| `id` | `String` | No | Unique identifier for the post |
+| `title` | `String` | No | Post title |
+| `userId` | `String` | No | ID of the user who created the post |
 
 ### Operations
 
@@ -218,11 +218,11 @@ user = client.User
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `createdAt` | `String` | No |  |
-| `email` | `String` | No |  |
-| `id` | `String` | No |  |
-| `name` | `String` | No |  |
-| `username` | `String` | No |  |
+| `createdAt` | `String` | No | Timestamp when the user was created |
+| `email` | `String` | No | User's email address |
+| `id` | `String` | No | Unique identifier for the user |
+| `name` | `String` | No | User's full name |
+| `username` | `String` | No | User's username |
 
 ### Field Usage by Operation
 

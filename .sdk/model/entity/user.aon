@@ -8,6 +8,7 @@ main: kit: entity: user: {
     {
       name: "createdAt"
       req: false
+      short: "Timestamp when the user was created"
       type: "`$STRING`"
     }
     {
@@ -23,11 +24,13 @@ main: kit: entity: user: {
         }
       }
       req: false
+      short: "User's email address"
       type: "`$STRING`"
     }
     {
       name: "id"
       req: false
+      short: "Unique identifier for the user"
       type: "`$STRING`"
     }
     {
@@ -43,11 +46,13 @@ main: kit: entity: user: {
         }
       }
       req: false
+      short: "User's full name"
       type: "`$STRING`"
     }
     {
       name: "username"
       req: false
+      short: "User's username"
       type: "`$STRING`"
     }
   ]

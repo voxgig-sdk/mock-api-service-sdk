@@ -83,30 +83,35 @@
               "active": true,
               "name": "body",
               "req": false,
+              "short": "Post content",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "createdAt",
               "req": false,
+              "short": "Timestamp when the post was created",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "id",
               "req": false,
+              "short": "Unique identifier for the post",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "title",
               "req": false,
+              "short": "Post title",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "userId",
               "req": false,
+              "short": "ID of the user who created the post",
               "type": "`$STRING`"
             }
           ],
@@ -215,6 +220,7 @@
               "active": true,
               "name": "createdAt",
               "req": false,
+              "short": "Timestamp when the user was created",
               "type": "`$STRING`"
             },
             {
@@ -231,12 +237,14 @@
                 }
               },
               "req": false,
+              "short": "User's email address",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "id",
               "req": false,
+              "short": "Unique identifier for the user",
               "type": "`$STRING`"
             },
             {
@@ -253,12 +261,14 @@
                 }
               },
               "req": false,
+              "short": "User's full name",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "username",
               "req": false,
+              "short": "User's username",
               "type": "`$STRING`"
             }
           ],

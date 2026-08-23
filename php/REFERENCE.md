@@ -153,11 +153,11 @@ $post = $client->Post();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `body` | `string` | No |  |
-| `createdAt` | `string` | No |  |
-| `id` | `string` | No |  |
-| `title` | `string` | No |  |
-| `userId` | `string` | No |  |
+| `body` | `string` | No | Post content |
+| `createdAt` | `string` | No | Timestamp when the post was created |
+| `id` | `string` | No | Unique identifier for the post |
+| `title` | `string` | No | Post title |
+| `userId` | `string` | No | ID of the user who created the post |
 
 ### Operations
 
@@ -217,11 +217,11 @@ $user = $client->User();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `createdAt` | `string` | No |  |
-| `email` | `string` | No |  |
-| `id` | `string` | No |  |
-| `name` | `string` | No |  |
-| `username` | `string` | No |  |
+| `createdAt` | `string` | No | Timestamp when the user was created |
+| `email` | `string` | No | User's email address |
+| `id` | `string` | No | Unique identifier for the user |
+| `name` | `string` | No | User's full name |
+| `username` | `string` | No | User's username |
 
 ### Field Usage by Operation
 

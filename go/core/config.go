@@ -11,6 +11,9 @@ func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
 			"name": "MockApiService",
+			"slug": "mock-api-service",
+			"version": "0.0.1",
+			"target": "go",
 		},
 		"feature": map[string]any{
 			"test": map[string]any{
@@ -73,22 +76,27 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "body",
+						"short": "Post content",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "createdAt",
+						"short": "Timestamp when the post was created",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "id",
+						"short": "Unique identifier for the post",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "title",
+						"short": "Post title",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "userId",
+						"short": "ID of the user who created the post",
 						"type": "`$STRING`",
 					},
 				},
@@ -180,6 +188,7 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "createdAt",
+						"short": "Timestamp when the user was created",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -194,10 +203,12 @@ func MakeConfig() map[string]any {
 								"type": "`$STRING`",
 							},
 						},
+						"short": "User's email address",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "id",
+						"short": "Unique identifier for the user",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -212,10 +223,12 @@ func MakeConfig() map[string]any {
 								"type": "`$STRING`",
 							},
 						},
+						"short": "User's full name",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "username",
+						"short": "User's username",
 						"type": "`$STRING`",
 					},
 				},

@@ -147,11 +147,11 @@ post = client.Post()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `body` | `str` | No |  |
-| `createdAt` | `str` | No |  |
-| `id` | `str` | No |  |
-| `title` | `str` | No |  |
-| `userId` | `str` | No |  |
+| `body` | `str` | No | Post content |
+| `createdAt` | `str` | No | Timestamp when the post was created |
+| `id` | `str` | No | Unique identifier for the post |
+| `title` | `str` | No | Post title |
+| `userId` | `str` | No | ID of the user who created the post |
 
 ### Operations
 
@@ -212,11 +212,11 @@ user = client.User()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `createdAt` | `str` | No |  |
-| `email` | `str` | No |  |
-| `id` | `str` | No |  |
-| `name` | `str` | No |  |
-| `username` | `str` | No |  |
+| `createdAt` | `str` | No | Timestamp when the user was created |
+| `email` | `str` | No | User's email address |
+| `id` | `str` | No | Unique identifier for the user |
+| `name` | `str` | No | User's full name |
+| `username` | `str` | No | User's username |
 
 ### Field Usage by Operation
 

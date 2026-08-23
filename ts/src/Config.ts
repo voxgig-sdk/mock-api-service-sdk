@@ -19,9 +19,20 @@ class Config {
     return fi
   }
 
+  // False for a feature added at runtime via options.extend (station's
+  // adopt path) - the constructor uses this to skip makeFeature for names
+  // no generated class backs.
+  hasFeature(this: any, fn: string) {
+    return null != FEATURE_CLASS[fn]
+  }
+
 
   main = {
     name: 'MockApiService',
+        slug: "mock-api-service",
+    version: "0.0.1",
+    target: "ts",
+
   }
 
 
@@ -100,22 +111,27 @@ class Config {
       "fields": [
         {
           "name": "body",
+          "short": "Post content",
           "type": "`$STRING`"
         },
         {
           "name": "createdAt",
+          "short": "Timestamp when the post was created",
           "type": "`$STRING`"
         },
         {
           "name": "id",
+          "short": "Unique identifier for the post",
           "type": "`$STRING`"
         },
         {
           "name": "title",
+          "short": "Post title",
           "type": "`$STRING`"
         },
         {
           "name": "userId",
+          "short": "ID of the user who created the post",
           "type": "`$STRING`"
         }
       ],
@@ -207,6 +223,7 @@ class Config {
       "fields": [
         {
           "name": "createdAt",
+          "short": "Timestamp when the user was created",
           "type": "`$STRING`"
         },
         {
@@ -221,10 +238,12 @@ class Config {
               "type": "`$STRING`"
             }
           },
+          "short": "User's email address",
           "type": "`$STRING`"
         },
         {
           "name": "id",
+          "short": "Unique identifier for the user",
           "type": "`$STRING`"
         },
         {
@@ -239,10 +258,12 @@ class Config {
               "type": "`$STRING`"
             }
           },
+          "short": "User's full name",
           "type": "`$STRING`"
         },
         {
           "name": "username",
+          "short": "User's username",
           "type": "`$STRING`"
         }
       ],

@@ -243,11 +243,11 @@ API path: `/ping`
 
 | Field | Description |
 | --- | --- |
-| `body` |  |
-| `createdAt` |  |
-| `id` |  |
-| `title` |  |
-| `userId` |  |
+| `body` | Post content |
+| `createdAt` | Timestamp when the post was created |
+| `id` | Unique identifier for the post |
+| `title` | Post title |
+| `userId` | ID of the user who created the post |
 
 Operations: List, Load.
 
@@ -257,11 +257,11 @@ API path: `/posts`
 
 | Field | Description |
 | --- | --- |
-| `createdAt` |  |
-| `email` |  |
-| `id` |  |
-| `name` |  |
-| `username` |  |
+| `createdAt` | Timestamp when the user was created |
+| `email` | User's email address |
+| `id` | Unique identifier for the user |
+| `name` | User's full name |
+| `username` | User's username |
 
 Operations: Create, List, Load, Remove, Update.
 
@@ -311,11 +311,11 @@ Create an instance: `local post = client:Post(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `body` | `string` |  |
-| `createdAt` | `string` |  |
-| `id` | `string` |  |
-| `title` | `string` |  |
-| `userId` | `string` |  |
+| `body` | `string` | Post content |
+| `createdAt` | `string` | Timestamp when the post was created |
+| `id` | `string` | Unique identifier for the post |
+| `title` | `string` | Post title |
+| `userId` | `string` | ID of the user who created the post |
 
 #### Example: Load
 
@@ -348,11 +348,11 @@ Create an instance: `local user = client:User(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `createdAt` | `string` |  |
-| `email` | `string` |  |
-| `id` | `string` |  |
-| `name` | `string` |  |
-| `username` | `string` |  |
+| `createdAt` | `string` | Timestamp when the user was created |
+| `email` | `string` | User's email address |
+| `id` | `string` | Unique identifier for the user |
+| `name` | `string` | User's full name |
+| `username` | `string` | User's username |
 
 #### Example: Load
 

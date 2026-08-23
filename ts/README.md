@@ -9,7 +9,7 @@ The API is exposed as capitalised, semantic **Entities** — e.g.
 instead of raw URL paths and query parameters. This keeps the surface
 predictable and low-friction for both humans and AI agents.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go`, `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb` — see
 > the [top-level README](../README.md).
 
 
@@ -305,11 +305,11 @@ API path: `/ping`
 
 | Field | Description |
 | --- | --- |
-| `body` |  |
-| `createdAt` |  |
-| `id` |  |
-| `title` |  |
-| `userId` |  |
+| `body` | Post content |
+| `createdAt` | Timestamp when the post was created |
+| `id` | Unique identifier for the post |
+| `title` | Post title |
+| `userId` | ID of the user who created the post |
 
 Operations: list, load.
 
@@ -319,11 +319,11 @@ API path: `/posts`
 
 | Field | Description |
 | --- | --- |
-| `createdAt` |  |
-| `email` |  |
-| `id` |  |
-| `name` |  |
-| `username` |  |
+| `createdAt` | Timestamp when the user was created |
+| `email` | User's email address |
+| `id` | Unique identifier for the user |
+| `name` | User's full name |
+| `username` | User's username |
 
 Operations: create, list, load, remove, update.
 
@@ -373,11 +373,11 @@ Create an instance: `const post = client.Post()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `body` | `string` |  |
-| `createdAt` | `string` |  |
-| `id` | `string` |  |
-| `title` | `string` |  |
-| `userId` | `string` |  |
+| `body` | `string` | Post content |
+| `createdAt` | `string` | Timestamp when the post was created |
+| `id` | `string` | Unique identifier for the post |
+| `title` | `string` | Post title |
+| `userId` | `string` | ID of the user who created the post |
 
 #### Example: Load
 
@@ -410,11 +410,11 @@ Create an instance: `const user = client.User()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `createdAt` | `string` |  |
-| `email` | `string` |  |
-| `id` | `string` |  |
-| `name` | `string` |  |
-| `username` | `string` |  |
+| `createdAt` | `string` | Timestamp when the user was created |
+| `email` | `string` | User's email address |
+| `id` | `string` | Unique identifier for the user |
+| `name` | `string` | User's full name |
+| `username` | `string` | User's username |
 
 #### Example: Load
 
