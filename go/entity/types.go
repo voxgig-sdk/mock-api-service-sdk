@@ -40,11 +40,8 @@ type PostLoadMatch struct {
 
 // PostListMatch is the typed request payload for Post.ListTyped.
 type PostListMatch struct {
-	Body *string `json:"body,omitempty"`
-	CreatedAt *string `json:"createdAt,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Title *string `json:"title,omitempty"`
-	UserId *string `json:"userId,omitempty"`
+	Limit *int `json:"limit,omitempty"`
+	Page *int `json:"page,omitempty"`
 }
 
 // User is the typed data model for the user entity.
@@ -63,11 +60,8 @@ type UserLoadMatch struct {
 
 // UserListMatch is the typed request payload for User.ListTyped.
 type UserListMatch struct {
-	CreatedAt *string `json:"createdAt,omitempty"`
-	Email *string `json:"email,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Username *string `json:"username,omitempty"`
+	Limit *int `json:"limit,omitempty"`
+	Page *int `json:"page,omitempty"`
 }
 
 // UserCreateData is the typed request payload for User.CreateTyped.

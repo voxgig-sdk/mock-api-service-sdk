@@ -45,11 +45,8 @@ class PostLoadMatch
 /** Request payload for Post#list. */
 class PostListMatch
 {
-    public ?string $body = null;
-    public ?string $createdAt = null;
-    public ?string $id = null;
-    public ?string $title = null;
-    public ?string $userId = null;
+    public ?int $limit = null;
+    public ?int $page = null;
 }
 
 /** User entity data model. */
@@ -71,11 +68,8 @@ class UserLoadMatch
 /** Request payload for User#list. */
 class UserListMatch
 {
-    public ?string $createdAt = null;
-    public ?string $email = null;
-    public ?string $id = null;
-    public ?string $name = null;
-    public ?string $username = null;
+    public ?int $limit = null;
+    public ?int $page = null;
 }
 
 /** Request payload for User#create. */

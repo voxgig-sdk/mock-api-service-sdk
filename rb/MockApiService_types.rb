@@ -70,26 +70,14 @@ PostLoadMatch = Struct.new(
 
 # Request payload for Post#list.
 #
-# @!attribute [rw] body
-#   @return [String, nil]
+# @!attribute [rw] limit
+#   @return [Integer, nil]
 #
-# @!attribute [rw] createdAt
-#   @return [String, nil]
-#
-# @!attribute [rw] id
-#   @return [String, nil]
-#
-# @!attribute [rw] title
-#   @return [String, nil]
-#
-# @!attribute [rw] userId
-#   @return [String, nil]
+# @!attribute [rw] page
+#   @return [Integer, nil]
 PostListMatch = Struct.new(
-  :body,
-  :createdAt,
-  :id,
-  :title,
-  :userId,
+  :limit,
+  :page,
   keyword_init: true
 )
 
@@ -129,26 +117,14 @@ UserLoadMatch = Struct.new(
 
 # Request payload for User#list.
 #
-# @!attribute [rw] createdAt
-#   @return [String, nil]
+# @!attribute [rw] limit
+#   @return [Integer, nil]
 #
-# @!attribute [rw] email
-#   @return [String, nil]
-#
-# @!attribute [rw] id
-#   @return [String, nil]
-#
-# @!attribute [rw] name
-#   @return [String, nil]
-#
-# @!attribute [rw] username
-#   @return [String, nil]
+# @!attribute [rw] page
+#   @return [Integer, nil]
 UserListMatch = Struct.new(
-  :createdAt,
-  :email,
-  :id,
-  :name,
-  :username,
+  :limit,
+  :page,
   keyword_init: true
 )
 

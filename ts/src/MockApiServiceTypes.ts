@@ -28,11 +28,8 @@ export interface PostLoadMatch {
 }
 
 export interface PostListMatch {
-  body?: string
-  createdAt?: string
-  id?: string
-  title?: string
-  userId?: string
+  limit?: number
+  page?: number
 }
 
 export interface User {
@@ -48,11 +45,8 @@ export interface UserLoadMatch {
 }
 
 export interface UserListMatch {
-  createdAt?: string
-  email?: string
-  id?: string
-  name?: string
-  username?: string
+  limit?: number
+  page?: number
 }
 
 export interface UserCreateData {

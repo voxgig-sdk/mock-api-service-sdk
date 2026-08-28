@@ -39,11 +39,8 @@ class PostLoadMatch(TypedDict):
 
 
 class PostListMatch(TypedDict, total=False):
-    body: str
-    createdAt: str
-    id: str
-    title: str
-    userId: str
+    limit: int
+    page: int
 
 
 class User(TypedDict, total=False):
@@ -59,11 +56,8 @@ class UserLoadMatch(TypedDict):
 
 
 class UserListMatch(TypedDict, total=False):
-    createdAt: str
-    email: str
-    id: str
-    name: str
-    username: str
+    limit: int
+    page: int
 
 
 class UserCreateData(TypedDict, total=False):

@@ -25,11 +25,8 @@
 ---@field id string
 
 ---@class PostListMatch
----@field body? string
----@field createdAt? string
----@field id? string
----@field title? string
----@field userId? string
+---@field limit? number
+---@field page? number
 
 ---@class User
 ---@field createdAt? string
@@ -42,11 +39,8 @@
 ---@field id string
 
 ---@class UserListMatch
----@field createdAt? string
----@field email? string
----@field id? string
----@field name? string
----@field username? string
+---@field limit? number
+---@field page? number
 
 ---@class UserCreateData
 ---@field createdAt? string
