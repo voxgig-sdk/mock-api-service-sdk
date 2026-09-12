@@ -65,14 +65,19 @@ module MockApiServiceConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/ping",
-                  "parts" => [
-                    "ping",
+                  "segments" => [
+                    {
+                      "lit" => "ping",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "ping",
+                  ],
                 },
               ],
             },
@@ -89,6 +94,7 @@ module MockApiServiceConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "date-time",
               "name" => "createdAt",
               "short" => "Timestamp when the post was created",
               "type" => "`$STRING`",
@@ -109,6 +115,10 @@ module MockApiServiceConfig
               "type" => "`$STRING`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "post",
           "op" => {
             "list" => {
@@ -137,8 +147,10 @@ module MockApiServiceConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/posts",
-                  "parts" => [
-                    "posts",
+                  "segments" => [
+                    {
+                      "lit" => "posts",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -150,6 +162,9 @@ module MockApiServiceConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "posts",
+                  ],
                 },
               ],
             },
@@ -172,9 +187,13 @@ module MockApiServiceConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/posts/{id}",
-                  "parts" => [
-                    "posts",
-                    "{id}",
+                  "segments" => [
+                    {
+                      "lit" => "posts",
+                    },
+                    {
+                      "var" => "id",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -185,6 +204,10 @@ module MockApiServiceConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "posts",
+                    "{id}",
+                  ],
                 },
               ],
             },
@@ -196,11 +219,13 @@ module MockApiServiceConfig
         "user" => {
           "fields" => [
             {
+              "format" => "date-time",
               "name" => "createdAt",
               "short" => "Timestamp when the user was created",
               "type" => "`$STRING`",
             },
             {
+              "format" => "email",
               "name" => "email",
               "op" => {
                 "create" => {
@@ -241,6 +266,10 @@ module MockApiServiceConfig
               "type" => "`$STRING`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "user",
           "op" => {
             "create" => {
@@ -252,14 +281,19 @@ module MockApiServiceConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/users",
-                  "parts" => [
-                    "users",
+                  "segments" => [
+                    {
+                      "lit" => "users",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "users",
+                  ],
                 },
               ],
             },
@@ -289,8 +323,10 @@ module MockApiServiceConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/users",
-                  "parts" => [
-                    "users",
+                  "segments" => [
+                    {
+                      "lit" => "users",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -302,6 +338,9 @@ module MockApiServiceConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "users",
+                  ],
                 },
               ],
             },
@@ -324,9 +363,13 @@ module MockApiServiceConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/users/{id}",
-                  "parts" => [
-                    "users",
-                    "{id}",
+                  "segments" => [
+                    {
+                      "lit" => "users",
+                    },
+                    {
+                      "var" => "id",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -337,6 +380,10 @@ module MockApiServiceConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "users",
+                    "{id}",
+                  ],
                 },
               ],
             },
@@ -359,9 +406,13 @@ module MockApiServiceConfig
                   "kind" => "http",
                   "method" => "DELETE",
                   "orig" => "/users/{id}",
-                  "parts" => [
-                    "users",
-                    "{id}",
+                  "segments" => [
+                    {
+                      "lit" => "users",
+                    },
+                    {
+                      "var" => "id",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -372,6 +423,10 @@ module MockApiServiceConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "users",
+                    "{id}",
+                  ],
                 },
               ],
             },
@@ -394,9 +449,13 @@ module MockApiServiceConfig
                   "kind" => "http",
                   "method" => "PUT",
                   "orig" => "/users/{id}",
-                  "parts" => [
-                    "users",
-                    "{id}",
+                  "segments" => [
+                    {
+                      "lit" => "users",
+                    },
+                    {
+                      "var" => "id",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -407,6 +466,10 @@ module MockApiServiceConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "users",
+                    "{id}",
+                  ],
                 },
               ],
             },

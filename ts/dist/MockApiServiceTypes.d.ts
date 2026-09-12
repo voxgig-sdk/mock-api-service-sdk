@@ -1,0 +1,53 @@
+export interface Health {
+    message?: string;
+    status?: string;
+}
+export interface HealthLoadMatch {
+    message?: string;
+    status?: string;
+}
+export interface Post {
+    body?: string;
+    createdAt?: string;
+    id?: string;
+    title?: string;
+    userId?: string;
+}
+export interface PostLoadMatch {
+    id: string;
+}
+export interface PostListMatch {
+    limit?: number;
+    page?: number;
+}
+export interface User {
+    createdAt?: string;
+    email?: string;
+    id?: string;
+    name?: string;
+    username?: string;
+}
+export interface UserLoadMatch {
+    id: string;
+}
+export interface UserListMatch {
+    limit?: number;
+    page?: number;
+}
+export interface UserCreateData {
+    createdAt?: string;
+    email?: string;
+    id?: string;
+    name?: string;
+    username?: string;
+}
+export interface UserUpdateData {
+    id: string;
+    createdAt?: string;
+    email?: string;
+    name?: string;
+    username?: string;
+}
+export interface UserRemoveMatch {
+    id: string;
+}

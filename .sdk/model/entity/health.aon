@@ -25,8 +25,10 @@ main: kit: entity: health: {
         {
           method: "GET"
           orig: "/ping"
-          parts: [
-            "ping"
+          segments: [
+            {
+              lit: "ping"
+            }
           ]
           transform: {
             req: "`reqdata`"

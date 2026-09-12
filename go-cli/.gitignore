@@ -1,3 +1,4 @@
 /dist/
 /mock-api-service-cli
 /go-cli
+.jostraca/

@@ -12,6 +12,7 @@ main: kit: entity: post: {
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "createdAt"
       req: false
       short: "Timestamp when the post was created"
@@ -70,8 +71,10 @@ main: kit: entity: post: {
           }
           method: "GET"
           orig: "/posts"
-          parts: [
-            "posts"
+          segments: [
+            {
+              lit: "posts"
+            }
           ]
           select: {
             exist: [
@@ -103,9 +106,13 @@ main: kit: entity: post: {
           }
           method: "GET"
           orig: "/posts/{id}"
-          parts: [
-            "posts"
-            "{id}"
+          segments: [
+            {
+              lit: "posts"
+            }
+            {
+              var: "id"
+            }
           ]
           select: {
             exist: [

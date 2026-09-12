@@ -1,6 +1,14 @@
 # MockApiService SDK configuration
 
 
+# The sekreto plugin DEFINITIONS the model selected per feature, imported
+# above by name from the modules the catalogue's active `plugin.def`
+# entries declare. Handed to each feature (secrets builds its Sekreto
+# with them): a provider kind not listed here is unknown to that SDK.
+FEATURE_PLUGINS = {
+}
+
+
 _shared_config = None
 
 
@@ -74,14 +82,19 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/ping",
-                "parts": [
-                  "ping",
+                "segments": [
+                  {
+                    "lit": "ping",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "ping",
+                ],
               },
             ],
           },
@@ -98,6 +111,7 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "date-time",
             "name": "createdAt",
             "short": "Timestamp when the post was created",
             "type": "`$STRING`",
@@ -118,6 +132,10 @@ def make_config():
             "type": "`$STRING`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "post",
         "op": {
           "list": {
@@ -146,8 +164,10 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/posts",
-                "parts": [
-                  "posts",
+                "segments": [
+                  {
+                    "lit": "posts",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -159,6 +179,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "posts",
+                ],
               },
             ],
           },
@@ -181,9 +204,13 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/posts/{id}",
-                "parts": [
-                  "posts",
-                  "{id}",
+                "segments": [
+                  {
+                    "lit": "posts",
+                  },
+                  {
+                    "var": "id",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -194,6 +221,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "posts",
+                  "{id}",
+                ],
               },
             ],
           },
@@ -205,11 +236,13 @@ def make_config():
       "user": {
         "fields": [
           {
+            "format": "date-time",
             "name": "createdAt",
             "short": "Timestamp when the user was created",
             "type": "`$STRING`",
           },
           {
+            "format": "email",
             "name": "email",
             "op": {
               "create": {
@@ -250,6 +283,10 @@ def make_config():
             "type": "`$STRING`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "user",
         "op": {
           "create": {
@@ -261,14 +298,19 @@ def make_config():
                 "kind": "http",
                 "method": "POST",
                 "orig": "/users",
-                "parts": [
-                  "users",
+                "segments": [
+                  {
+                    "lit": "users",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "users",
+                ],
               },
             ],
           },
@@ -298,8 +340,10 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/users",
-                "parts": [
-                  "users",
+                "segments": [
+                  {
+                    "lit": "users",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -311,6 +355,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "users",
+                ],
               },
             ],
           },
@@ -333,9 +380,13 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/users/{id}",
-                "parts": [
-                  "users",
-                  "{id}",
+                "segments": [
+                  {
+                    "lit": "users",
+                  },
+                  {
+                    "var": "id",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -346,6 +397,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "users",
+                  "{id}",
+                ],
               },
             ],
           },
@@ -368,9 +423,13 @@ def make_config():
                 "kind": "http",
                 "method": "DELETE",
                 "orig": "/users/{id}",
-                "parts": [
-                  "users",
-                  "{id}",
+                "segments": [
+                  {
+                    "lit": "users",
+                  },
+                  {
+                    "var": "id",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -381,6 +440,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "users",
+                  "{id}",
+                ],
               },
             ],
           },
@@ -403,9 +466,13 @@ def make_config():
                 "kind": "http",
                 "method": "PUT",
                 "orig": "/users/{id}",
-                "parts": [
-                  "users",
-                  "{id}",
+                "segments": [
+                  {
+                    "lit": "users",
+                  },
+                  {
+                    "var": "id",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -416,6 +483,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "users",
+                  "{id}",
+                ],
               },
             ],
           },
