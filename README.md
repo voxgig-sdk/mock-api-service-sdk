@@ -105,7 +105,7 @@ local results, err = client:Post():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/mock-api-service` | publish pending — [install from git tag](https://github.com/voxgig-sdk/mock-api-service-sdk/releases) |
+| TypeScript | `@voxgig-sdk/mock-api-service-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/mock-api-service-sdk/releases) |
 | Python | `voxgig-sdk-mock-api-service` | publish pending — [install from git tag](https://github.com/voxgig-sdk/mock-api-service-sdk/releases) |
 | PHP | `voxgig-sdk/mock-api-service` | publish pending — [install from git tag](https://github.com/voxgig-sdk/mock-api-service-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/mock-api-service-sdk/go` | `go get github.com/voxgig-sdk/mock-api-service-sdk/go@latest` |
@@ -119,7 +119,7 @@ local results, err = client:Post():list()
 ### TypeScript
 
 ```ts
-import { MockApiServiceSDK } from '@voxgig-sdk/mock-api-service'
+import { MockApiServiceSDK } from '@voxgig-sdk/mock-api-service-sdk'
 
 const client = new MockApiServiceSDK()
 
