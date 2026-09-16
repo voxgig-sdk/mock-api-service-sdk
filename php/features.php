@@ -4,7 +4,10 @@ declare(strict_types=1);
 // MockApiService SDK feature factory
 
 require_once __DIR__ . '/feature/BaseFeature.php';
+require_once __DIR__ . '/feature/RatelimitFeature.php';
+require_once __DIR__ . '/feature/RetryFeature.php';
 require_once __DIR__ . '/feature/TestFeature.php';
+require_once __DIR__ . '/feature/TimeoutFeature.php';
 
 
 class MockApiServiceFeatures
@@ -14,8 +17,14 @@ class MockApiServiceFeatures
         switch ($name) {
             case "base":
                 return new MockApiServiceBaseFeature();
+            case "ratelimit":
+                return new MockApiServiceRatelimitFeature();
+            case "retry":
+                return new MockApiServiceRetryFeature();
             case "test":
                 return new MockApiServiceTestFeature();
+            case "timeout":
+                return new MockApiServiceTimeoutFeature();
             default:
                 return new MockApiServiceBaseFeature();
         }
@@ -31,7 +40,10 @@ class MockApiServiceFeatures
     {
         switch ($name) {
             case "base":
+            case "ratelimit":
+            case "retry":
             case "test":
+            case "timeout":
                 return true;
             default:
                 return false;

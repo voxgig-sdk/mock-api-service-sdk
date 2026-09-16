@@ -23,6 +23,12 @@ main: kit: entity: health: {
       name: "load"
       points: [
         {
+          contract: {
+            id: "GET /ping"
+            json: "{\"operationId\":\"ping\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"message\":{\"example\":\"pong\",\"type\":\"string\"},\"status\":{\"example\":\"ok\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/ping"
           segments: [

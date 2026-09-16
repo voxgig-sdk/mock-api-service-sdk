@@ -69,6 +69,12 @@ main: kit: entity: post: {
               }
             ]
           }
+          contract: {
+            id: "GET /posts"
+            json: "{\"operationId\":\"getPosts\",\"parameters\":[{\"description\":\"Page number for pagination\",\"in\":\"query\",\"name\":\"page\",\"required\":false,\"schema\":{\"default\":1,\"type\":\"integer\"}},{\"description\":\"Number of items per page\",\"in\":\"query\",\"name\":\"limit\",\"required\":false,\"schema\":{\"default\":10,\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"properties\":{\"body\":{\"description\":\"Post content\",\"example\":\"This is the content of the post.\",\"type\":\"string\"},\"createdAt\":{\"description\":\"Timestamp when the post was created\",\"format\":\"date-time\",\"type\":\"string\"},\"id\":{\"description\":\"Unique identifier for the post\",\"example\":\"1\",\"type\":\"string\"},\"title\":{\"description\":\"Post title\",\"example\":\"Sample Post Title\",\"type\":\"string\"},\"userId\":{\"description\":\"ID of the user who created the post\",\"example\":\"1\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/posts"
           segments: [
@@ -103,6 +109,12 @@ main: kit: entity: post: {
                 type: "`$STRING`"
               }
             ]
+          }
+          contract: {
+            id: "GET /posts/{id}"
+            json: "{\"operationId\":\"getPostById\",\"parameters\":[{\"description\":\"Post ID\",\"in\":\"path\",\"name\":\"id\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"body\":{\"description\":\"Post content\",\"example\":\"This is the content of the post.\",\"type\":\"string\"},\"createdAt\":{\"description\":\"Timestamp when the post was created\",\"format\":\"date-time\",\"type\":\"string\"},\"id\":{\"description\":\"Unique identifier for the post\",\"example\":\"1\",\"type\":\"string\"},\"title\":{\"description\":\"Post title\",\"example\":\"Sample Post Title\",\"type\":\"string\"},\"userId\":{\"description\":\"ID of the user who created the post\",\"example\":\"1\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"},\"404\":{\"description\":\"Post not found\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
           }
           method: "GET"
           orig: "/posts/{id}"
