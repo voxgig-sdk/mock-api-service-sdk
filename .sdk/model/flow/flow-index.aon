@@ -1,5 +1,5 @@
 # Flows
 
-@"BasicHealthFlow.aon"
-@"BasicPostFlow.aon"
-@"BasicUserFlow.aon"
+@"./BasicHealthFlow.aon"
+@"./BasicPostFlow.aon"
+@"./BasicUserFlow.aon"

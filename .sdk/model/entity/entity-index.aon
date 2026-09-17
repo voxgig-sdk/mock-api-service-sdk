@@ -1,5 +1,5 @@
 # Entity Models
 
-@"health.aon"
-@"post.aon"
-@"user.aon"
+@"./health.aon"
+@"./post.aon"
+@"./user.aon"

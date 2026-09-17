@@ -127,15 +127,15 @@ class Config {
 
     entity: {
       
-      health: {
-      },
-
-      post: {
-      },
-
-      user: {
-      },
-
+        health: {
+        },
+  
+        post: {
+        },
+  
+        user: {
+        },
+  
     }
   }
 
